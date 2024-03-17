@@ -1,5 +1,3 @@
-
-
 /*Review*/
 let items = document.querySelectorAll('.slider .item');
     let next = document.getElementById('next');
@@ -48,5 +46,3 @@ faqs.forEach((faq) => {
     faq.classList.toggle("active");
   });
 }); 
-
-
