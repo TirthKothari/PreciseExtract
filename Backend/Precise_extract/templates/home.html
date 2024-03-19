@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precise Extract - Home</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body> 
+    <section class="header">
+        <nav>
+            <a href="{{url_for('home')}}"><img src = "{{url_for('static',filename='img/logo.png')}}"></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="{{url_for('home')}}">&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                    <li><a href="">&nbsp;&nbsp;&nbsp;&nbsp;Solution&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                    <li><a href="">About</a></li>
+                </ul>
+            </div>
+            <div class="nav-log">
+                <ul>
+                    <li><button onclick="location.href='{{url_for('login')}}'">Log In / Sign Up</button></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="textbox">
+            <p>DOCUMENT &nbsp; AI &nbsp; PLATFORM</p><br>
+            <h1>Precise Extract</h1><br>
+            <p1>Extract&nbsp; Tabular&nbsp; data&nbsp; from&nbsp; Documents</p1> <br> 
+            <p2>&nbsp;Easily&nbsp;.&nbsp; Efficiently&nbsp;.&nbsp; Accurately</p2>
+        </div>   
+        <div class="strtbtn">
+        <button class="cta" onclick="location.href='{{url_for('login')}}'">
+            <span class="spnnext">Get Started For Free</span>
+            <span class="second">
+              <svg width="50px" height="20px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                  <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                  <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+                </g>
+              </svg>
+            </span> 
+        </button>
+    </div>
+        <div class="desc">
+            <p>Preserve your valuable time and avert any mistakes with Precise Extract's table extraction tool for PDFs/Images.<br> This tool allows for real-time extraction of tables from PDF files and images with absolute precision.</p>
+        </div>
+    </section>
+    <section class="hows">
+        <div class="how">
+        <h1>How It Works?</h1>
+        <div class="hrow">
+            <div class="how-col">
+                <p>STEP 1</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-up"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="M12 10v6"/><path d="m9 13 3-3 3 3"/></svg>
+                <h3>Upload your file</h3>
+                <p1>Files are safely uploaded over an encrypted connection. Files stay secure. After processing, they are permanently deleted. Click 'Upload' and select files from your local computer. Dragging and dropping files to the page also works.</p1>
+            </div>
+            <div class="how-col">
+                <p>STEP 2</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-pen-line"><path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2"/><path d="M8 18h1"/><path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z"/></svg>
+                <h3>Edit & Review</h3>
+                <p1>Once the document is processed, the software would take you to the review screen. In the review screen, you can see the extracted table under line-items. If you find an issue with the extracted data, you can correct and fix it right there.</p1>
+            </div>
+            <div class="how-col">
+                <p>STEP 3</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot-message-square"><path d="M12 6V2H8"/><path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z"/><path d="M2 12h2"/><path d="M9 11v2"/><path d="M15 11v2"/><path d="M20 12h2"/></svg>
+                <h3>NLP on Database</h3>
+                <p1>Our cutting-edge Natural Language Processing feature analyzes the uploaded data and extract valuable insights, enabling efficient querying and retrieval of information, empowering you with actionable intelligence derived from your documents.</p1>
+            </div>
+            <div class="how-col">
+                <p>STEP 4</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <h3>Export your file</h3>
+                <p1>Sit back and watch as Precise Extract swiftly extracts the data you need. Export the extracted data in Excel/xls format effortlessly. Say goodbye to headache-inducing manual data entry and hello to streamlined efficiency!</p1>
+            </div>
+        </div>
+    </div>
+    </section>
+    <section class="rev">
+        <h1>Customers trust us to process millions of <br>documents each year</h1>
+        <div class="revimg">
+            <img src="{{url_for('static',filename='img/revimgf.png')}}">
+        </div>  
+        <div class="slider">
+            <div class="item">
+                <h1>Best Document AI solution that comes with pre-trained APIs a CRE lender needs</h1><br><br>
+                <p>“Amongst others, the biggest advantage of partnering with Docsumo is the data capture accuracy they’re able to deliver. We’re witnessing a 95%+ STP rate, that means we don’t even have to look at risk assessment documents 95 out of 100 times, and the extracted data is directly pushed into the database.”</p><br>
+                <p1>Howard Leiner</p1>
+            </div>
+            <div class="item">
+                <h1>Precise Extract is your go-to solution if you need a flexible solution to capture data from unstructured documents</h1><br><br>
+                <p>“Precise Extract does a very good job when it comes to our specific use-case. Debt settlement letters vary a lot from each other, but Precise Extract manages to capture data accurately almost every single time at the processing speed which is unprecedented. We’re witnessing the STP rate of over 95% with Precise Extract.”</p><br>
+                <p1>Daniel Tilipman</p1>
+            </div>
+            <div class="item">
+                <h1>With Precise Extract we are now able to process thousands of ACORD Forms in a day</h1><br><br>
+                <p>“We were looking for a tech partner to automate analysis of certificates of insurance for our real estate liability management software. We are really happy with Precise Extract’s APIs and their team’s dedication to solving our problem. We are now able to process thousands of ACORD forms a day automatically while being able to get accurate analytics from over 100 data points.”</p><br>
+                <p1>Michael Rudman</p1>
+            </div>
+            <div class="item">
+                <h1>With Precise Extract, we are now able to save more than 500 hours per month.</h1><br><br>
+                <p>“With Precise Extract, we are now able to assign barcodes in less than 2 mins. The same process used to take us 20 mins previously. We are now saving hundreds of hours a month generating Advanced Shipment Notifications. It has reduced manual errors drastically..”</p><br>
+                <p1>Neil Lawrence</p1>
+            </div>
+            <div class="item">
+                <h1>One solution for different utility bill formats</h1><br><br>
+                <p>“We’re processing utility bills from 6 different service providers for portfolio management. The challenge was to have just one solution to process all different versions of bills to save us the hassle of retraining & switching amongst multiple solutions. Precise Extract has been able to deliver just that - one solution for all different variations.”</p><br>
+                <p1>Shani Nowlin</p1>
+            </div>
+            <div class="item">
+                <h1>Best in class for capturing data from financial documents</h1><br><br>
+                <p>“We are using Precise Extract’s APIs for automating data capture from bank statements and identity cards while on-boarding customers. It has reduced the time our operations team spends on data entry by manifolds while providing a much better customer experience.”</p><br>
+                <p1>Prashanth Ranganathan</p1>
+            </div>
+            <button id="next">></button>
+            <button id="prev"><</button>
+        </div>
+    </section>
+    <section class="faqsec">
+        <h1>FAQ's</h1>
+        <div class="faqm">
+        <div class="faq">
+            <div class="question">
+            <h3>Why do I need to extract tables from a PDF document?</h3>
+            <svg width="15" height="10" viewBox="0 0 42 25">
+            <path
+            d="M3 3L21 21L39 3"
+            stroke="white"
+            stroke-width="7"
+            stroke-linecap="round"
+            />
+            </svg>
+            </div>
+            <div class="answer">    
+            <p>Tables are cleaner data format, and often you need only the data from tables embedded in a pdf document. That's why, businesses find it useful to extract tables from pdf documents and process the data.</p>
+            </div>
+        </div>
+            <div class="faq">
+                <div class="question">
+                <h3>Can I convert my document without installing the software?</h3>
+                <svg width="15" height="10" viewBox="0 0 42 25">
+                    <path
+                    d="M3 3L21 21L39 3"
+                    stroke="white"
+                    stroke-width="7"
+                    stroke-linecap="round"
+                    />
+                    </svg>
+                </div>
+                <div class="answer">    
+                <p>Precise Extract's free online OCR tool is capable of processing any document online with complete accuracy. So, there is no need to install the tool on your system.</p>
+                </div>
+                </div>
+                <div class="faq">
+                    <div class="question">
+                    <h3>Do I need to train this free table extractor from pdf tool?</h3>
+                    <svg width="15" height="10" viewBox="0 0 42 25">
+                        <path
+                        d="M3 3L21 21L39 3"
+                        stroke="white"
+                        stroke-width="7"
+                        stroke-linecap="round"
+                        />
+                        </svg>
+                    </div>
+                    <div class="answer">    
+                    <p>The efficiency of Artificial Intelligence and Machine Learning technology improves with number of sample documents processed. So, it is highly recommended to have at least couple of sample documents ready for training..</p>
+                    </div>
+                    </div>
+                    <div class="faq">
+                        <div class="question">
+                        <h3>Is my data secure and will the information remain protected?</h3>
+                        <svg width="15" height="10" viewBox="0 0 42 25">
+                            <path
+                            d="M3 3L21 21L39 3"
+                            stroke="white"
+                            stroke-width="7"
+                            stroke-linecap="round"
+                            />
+                            </svg>
+                        </div>
+                        <div class="answer">    
+                        <p>Precise Extract doesn't sell or share your data to any third-party person or organization. Your data is completely secure and confidential, it is highly recommended to have at least couple of sample documents ready for training...</p>
+                        </div>
+                        </div>
+                        <div class="faq">
+                            <div class="question">
+                            <h3>What fields does it capture and how is its data gathering?</h3>
+                            <svg width="15" height="10" viewBox="0 0 42 25">
+                                <path
+                                d="M3 3L21 21L39 3"
+                                stroke="white"
+                                stroke-width="7"
+                                stroke-linecap="round"
+                                />
+                                </svg>
+                            </div>
+                            <div class="answer">    
+                            <p>The tool lets you capture any text based field. The tool allows you to review the extracted data before downloading the output....</p>
+                            </div>
+                            </div>
+                        </div>
+    </section>
+    <section class="foote">
+        <div class="footimg">
+            <img src="{{url_for('static',filename='img/footerc.png')}}">
+        </div> 
+        <footer>
+            <div class="foot-container">
+                <div class="footer-content">
+                    <h3>Contact Us</h3>
+                    <p>Email:&nbsp;helpdesk@gmail.com</p>
+                    <p> Phone:&nbsp;+121 56556</p>
+                    <p> Address:&nbsp; north korea </p>
+                </div>
+                <div class="footer-content">
+                    <h3>Quick Links</h3>
+                     <ul class="list">
+                        <li><a href="{{url_for('home')}}">Home</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Solution</a></li>
+                        <li><a href="{{url_for('login')}}">Login</a></li>
+                     </ul>
+                </div>
+                <div class="footer-content">
+                    <h3>Follow Us</h3>
+                    <div class="tooltip-container">
+                        <span class="tooltip"><a href="">Git Hub</a></span>
+                        <span class="text">
+                            <div class="borde-back">
+                                <div class="icon">
+                                    <a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github">
+                                            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                                            <path d="M9 18c-4.51 2-5-2-7-2"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                      <div class="tooltip-container">
+                        <span class="tooltip"><a href="">Instagram</a></span>
+                        <span class="text">
+                            <div class="borde-back">
+                                <div class="icon">
+                                    <a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram">
+                                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="tooltip-container">
+                        <span class="tooltip"><a href="">Facebook</a></span>
+                        <span class="text">
+                            <div class="borde-back">
+                                <div class="icon">
+                                    <a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook">
+                                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    
+                    </div>
+            </div>
+            <div class="bottom-bar">
+                <p>&copy; 2024 company . All rights reserved</p>
+            </div>
+        </footer>
+    </section>
+    <script src="{{ url_for('static', filename='script1.js') }}"></script>
+</body>
+</html>
