@@ -114,6 +114,21 @@
           </div>
         </div>
         </section>
+        <div class="epopup">
+          <span class="etext">
+            Error :
+          </span>
+        </div>
+        <div class="epopup">
+          <span class="etext">
+            Error : 
+          </span>
+        </div>
+        <div class="epopup">
+          <span class="etext">
+            Error : 
+          </span>
+        </div>        
         <script>
           var x = document.getElementById("login");
           var y = document.getElementById("signup");
@@ -166,7 +181,17 @@
             eyeiconConfirm.src = "eye-close.png";
             }
           }
+          
+          window.addEventListener('DOMContentLoaded', function() {
+          const epopups = document.querySelectorAll('.epopup');
+          let topPosition = 40; 
 
+        epopups.forEach(function(epopup) {
+        epopup.style.top = topPosition + '%';
+        topPosition += 15; 
+        epopup.style.display = 'block';
+      });
+  });
         </script>
 </body>
 </html>

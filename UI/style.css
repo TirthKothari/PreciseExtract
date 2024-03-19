@@ -258,7 +258,7 @@ nav img{
   position: relative;
 }
 .form-box{
-  width: 540px;
+  width: 530px;
   height: 552.5px;
   top: 48.5%;
   left: 50%;
@@ -321,7 +321,8 @@ font-weight: 500;
   border: 3px solid #ecedec;
   background-color: #ffffff;
   border-radius: 10px;
-  height: 50px;
+  height: 40px;
+  width: 400px;
   display: flex;
   align-items: center;
   padding-left: 5px;
@@ -349,7 +350,7 @@ font-weight: 500;
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  justify-content: space-between;
+  margin-top: 15px;
 }
 .flex-row div span {
   font-size: 14px;
@@ -358,13 +359,14 @@ font-weight: 500;
 }
 .span {
   font-size: 14px;
-  margin-left: 5px;
   color: #2d79f3;
   font-weight: 500;
   cursor: pointer;
+  margin-left: 175px;
 }
 .button-submit {
-  margin: 20px 0 10px 0;
+  margin: 20px 0 15px 0;
+  margin-right: 40px;
   background-color: #323232;
   border: none;
   color: white;
@@ -372,7 +374,7 @@ font-weight: 500;
   font-weight: 500;
   border-radius: 10px;
   height: 50px;
-  width: 100%;
+  width: 410px;
   cursor: pointer;
 }
 .button-submit:hover {
@@ -382,11 +384,11 @@ font-weight: 500;
   text-align: center;
   color: rgb(255, 255, 255);
   font-size: 14px;
-  margin: 5px 0;
+  margin-right: 35px;
 }
 .btn {
-  margin-top: 10px;
-  width: 100%;
+  margin-top: 0px;
+  width: 410px;
   height: 50px;
   border-radius: 10px;
   display: flex;
@@ -408,6 +410,26 @@ font-weight: 500;
 }
 #signup{
   left: 650px;
+}
+.epopup {
+  position: fixed;
+  left: 85%;
+  transform: translateX(-50%);
+  width: 340px;
+  background: linear-gradient(135deg, rgba(56, 56, 56, 0), rgba(51, 51, 51, 0));
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(90px);
+  box-shadow: 0 0px 15px 0px #275EFE;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: none;  
+}
+.epopup .etext {
+  font-size: 17px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 200;
+  color: red;
 }
 .hows{
   background: #f1f1f1;
@@ -1231,13 +1253,6 @@ transform: rotateX(30deg);
   opacity: 1;
   left: 0;
  }
- .canvas{
-  height: 100vh;
-  width: 100%;
-  background: radial-gradient(77.2% 114.39999999999999% at 51.4% -3.4000000000000004%, #464646 0%, rgb(30, 30, 30) 138.10810260944537%);
-  background-position: center;
-  flex-wrap: wrap;
-}
 :root{
     --color_Blue: #3f93f1;
     --color_Dark1: #1e1e1e;
@@ -1245,48 +1260,67 @@ transform: rotateX(30deg);
     --color_Light1: #dfdfdf;
     --color_Light2: #c4c4c4;
 }
-
-/* =============== Sidebar =============== */
 .sidebar{
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 260px;
-    background-color: var(--color_Dark1);
+    background: linear-gradient(135deg, rgb(27, 27, 27), rgb(30, 30, 30));
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
     transition: all .5s ease;
     z-index: 100;
 }
 .sidebar.close{
     width: 78px;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
 }
-
-/* --------- Logo ------------ */
 .logo-box{
     height: 60px;
     width: 100%;
     display: flex;
     align-items: center;
-    color: var(--color_Light1);
     transition: all .5s ease;
+    text-decoration: none;
 }
-.logo-box:hover{
-    color: var(--color_Blue);
+.logo-image {
+  font-size: 40px;
+  height: 60px;
+  width: 178px;
+  text-align: center;
+  line-height: 50px;
+  margin-top: 20px;
+  transition: all .5s ease;
 }
-.logo-box i{
-    font-size: 30px;
-    height: 50px;
-    min-width: 78px;
-    text-align: center;
-    line-height: 50px;
-    transition: all .5s ease;
-}
-.sidebar.close .logo-box i{
+.sidebar.close .logo-box .logo-image{
     transform: rotate(360deg);
 }
 .logo-name{
-    font-size: 22px;
-    font-weight: 600;
+  margin-top: -35px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: right;
+  margin-right: 15px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  -webkit-background-clip: text;
+   background-clip: text;
+  -webkit-text-fill-color: transparent;
+   background-image: radial-gradient(circle, #086FFF 20%, #FFDDB7 30%, #086FFF 70%, #FFDDB7 80%), radial-gradient(circle, #086FFF 20%, #FFDDB7 30%, #086FFF 70%, #FFDDB7 80%); /* Define your gradient colors here */
+   background-size: 250% 250%; 
+   background-position: 0% 0%, 50% 50%; 
+   background-repeat: no-repeat;
+    animation: rotateGradient 15s ease-in infinite alternate;
+  }
+  @keyframes rotateGradient {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 100% 100%;
+    }
 }
 
 /* ---------- Sidebar List ---------- */
@@ -1409,7 +1443,7 @@ transform: rotateX(30deg);
 /* =============== Home Section =============== */
 .home{
     position: relative;
-    background:radial-gradient(77.2% 114.39999999999999% at 51.4% -3.4000000000000004%, #7f7f7f 0%, rgb(39, 39, 39) 138.10810260944537%);
+    background:radial-gradient(57.2% 114.39999999999999% at 51.4% -3.4000000000000004%, #7c7c7c 0%, rgb(114, 114, 114) 158.10810260944537%);
     width: 100%;
     height: 100vh;
     transition: all .5s ease;
@@ -1429,11 +1463,6 @@ transform: rotateX(30deg);
     font-size: 35px;
     color: var(--color_Dark1);
     margin-left: 15px;
-}
-.home .toggle-sidebar .text{
-    font-size: 25px;
-    color: var(--color_Dark1);
-    font-weight: 600;
 }
 @media (max-width: 1080px){    
 }
