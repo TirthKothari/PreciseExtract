@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect,session
 from Precise_extract import app
 from Precise_extract import mysql
 from Precise_extract import bcrypt
@@ -15,8 +15,9 @@ def home():
 def login():
     form1 = RegistrationForm()
     form = LoginForm()
-    if form1.validate_on_submit() and form1.submit.data:
+    if form1.validate_on_submit():
         curr = mysql.connection.cursor()
+        print(f"form1 {form1.email.data}")
         curr.execute(f"SELECT email FROM user WHERE email='{form1.email.data}'")
         if len(curr.fetchall()) == 0:
             hashed_password = bcrypt.generate_password_hash(form1.password.data).decode('utf-8')
@@ -28,8 +29,8 @@ def login():
         else:
             print("Email is already registered !")
             flash('Email is already registered !','epopup1')
-        curr.close()
-    
+            curr.close()
+            return redirect(url_for('login'))
     return render_template("login.html",form=form,form1=form1)
 
 @app.route("/browse")

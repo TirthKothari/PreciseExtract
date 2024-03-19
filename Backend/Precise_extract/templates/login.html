@@ -109,7 +109,7 @@
                   <!-- <input type="password" class="input" placeholder="Enter your Password" id="confirmPassword" onkeyup="validatePasswords()" > -->
                   <img src="{{url_for('static',filename='img/eye-close.png')}}" id="eyeiconConfirm">
                 </div>
-                {{form1.submit(class='button-submit')}}
+                {{form1.submit(class='button-submit' , id='signupButton' ,disabled='true')}}
                 <!-- <button class="button-submit">Sign Up</button> -->
                 <div class="flex-row">
                   <button class="btn google">
@@ -145,6 +145,7 @@
               </div>
             {% endfor %}
           {% endif %}
+          {% set messages = undefined%}
         {% endwith %}
         <div class="epopup" id="passwordError">
           <span class="etext">
@@ -239,25 +240,31 @@
           }); 
 
           
+          var val_pass;
+          var val_ema;
+          var pass_str;
           
           function validatePasswords() {
           var password = document.getElementById("passwordSignup").value;
           var confirmPassword = document.getElementById("confirmPassword").value;
            if (password !== confirmPassword) {
             document.getElementById("passwordError").style.display = "block";
+            val_pass = false
           } else {
             document.getElementById("passwordError").style.display = "none";
-            ;
+            val_pass = true
             }
           }                                   
         function validateEmail() {
         var emailInput = document.getElementById('emailInput');
-        var email = emailInput.value;
+        var email = emailInput.value.trim();
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (emailRegex.test(email)) {
+          if (emailRegex.test(email) || emailInput.value == '') {
           document.getElementById("emailError").style.display = "none";
+          val_ema = true
         } else {
           document.getElementById("emailError").style.display = "block";
+          val_ema = false
         }
       }                                                      
         function hideErrorMessage() {
@@ -267,11 +274,13 @@
       function passstr(){
       var str = document.getElementById("passwdstrength");
       var pas = document.getElementById("passwordSignup");
-      if(pas.value.length < 4){
+      if(pas.value.length < 4 && pas.value !=''){
         document.getElementById("passwdstrength").style.display = "block";
+        pass_str = false
       }
-      else{
+      else if(pas.value.length >=4 || pas.value == ''){
         document.getElementById("passwdstrength").style.display = "none";
+        pass_str = true
       }}
       function hidestrMessage() {
         document.getElementById("passwdstrength").style.display = "none";
@@ -281,6 +290,58 @@
         document.getElementById("emailError").style.display = "none";
         document.getElementById("passwordError").style.display = "none";
       }   
+
+      function enableSignUpButton() {
+      var passwordMatch = validatePasswords();
+      var validEmail = validateEmail();
+      var signUpButton = document.getElementById("signupBtn");
+
+    if (passwordMatch && validEmail) {
+      signUpButton.disabled = false;
+     } else {
+      signUpButton.disabled = true;
+    }
+  }
+  document.getElementById("signupButton").disabled = true;
+  function toggleSignupButton() {
+  var password = document.getElementById("passwordSignup").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+  var emailInput = document.getElementById('emailInput').value.trim();
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (password === confirmPassword && emailRegex.test(emailInput) && (password !='' && confirmPassword!='') && (password.length >=4)) {
+    document.getElementById("signupButton").disabled = false;
+  } else {
+    document.getElementById("signupButton").disabled = true;
+  }
+}
+document.getElementById("passwordSignup").addEventListener("keyup", toggleSignupButton);
+document.getElementById("confirmPassword").addEventListener("keyup", toggleSignupButton);
+document.getElementById("emailInput").addEventListener("keyup", toggleSignupButton);
+    //   var signupButton = document.querySelector('#signup .button-submit');
+    //   signupButton.disabled = true;
+    //   document.addEventListener("DOMContentLoaded", function() {
+      
+
+    //   const eminp = document.getElementById("emailInput")
+    //   const passinp = document.getElementById("passwordSignup")
+    //   const conf_pass_inp = document.getElementById("confirmPassword")
+    //   const submit_inp = document.getElementById("regsub")
+
+    //   eminp.addEventListener("input",validateform);
+    //   passinp.addEventListener("input",validateform);
+    //   conf_pass_inp.addEventListener("input",validateform);
+    //   submit_inp.addEventListener("input",validateform);
+    // //   var inputFields = document.querySelectorAll('#signup input');
+    // // inputFields.forEach(function(input) {
+    // //     input.addEventListener('input', validateform);
+    // // });
+
+    //   function validateform(){
+    //     signupButton.disabled = !(pass_str && val_ema && val_pass)
+    //   }
+    // });
+
       </script>
 </body>
 </html>
