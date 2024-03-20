@@ -93,7 +93,7 @@
                   <input type="password" class="input" placeholder="Enter your Password" id="confirmPassword" onkeyup="validatePasswords()" >
                   <img src="eye-close.png" id="eyeiconConfirm">
                 </div>
-                <button class="button-submit">Sign Up</button>
+                <button id="signupButton" class="button-submit" disabled>Sign Up</button>
                 <div class="flex-row">
                   <button class="btn google">
                     <svg version="1.1" width="20" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -194,17 +194,24 @@
           epopup.style.display = "none";
             });
           });   
-          
           function validatePasswords() {
-          var password = document.getElementById("passwordSignup").value;
-          var confirmPassword = document.getElementById("confirmPassword").value;
-           if (password !== confirmPassword) {
-            document.getElementById("passwordError").style.display = "block";
-          } else {
-            document.getElementById("passwordError").style.display = "none";
-            ;
-            }
-          }                                   
+        var password = document.getElementById("passwordSignup").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var passwordErrorPopup = document.getElementById("passwordError");
+
+    if (password !== confirmPassword) {
+        passwordErrorPopup.style.display = "block";
+        passwordErrorPopup.classList.add("fade-out");
+        
+        setTimeout(function() {
+            passwordErrorPopup.style.display = "none";
+            passwordErrorPopup.classList.remove("fade-out");
+        }, 4000);
+    } else {
+        passwordErrorPopup.style.display = "none";
+    }
+}
+                            
         function validateEmail() {
         var emailInput = document.getElementById('emailInput');
         var email = emailInput.value;
@@ -214,11 +221,14 @@
         } else {
           document.getElementById("emailError").style.display = "block";
         }
-      }                                                      
+      }              
+      
+      
         function hideErrorMessage() {
         document.getElementById("emailError").style.display = "none";
       }               
-      
+
+
       function passstr(){
       var str = document.getElementById("passwdstrength");
       var pas = document.getElementById("passwordSignup");
@@ -228,14 +238,47 @@
       else{
         document.getElementById("passwdstrength").style.display = "none";
       }}
+
+
       function hidestrMessage() {
         document.getElementById("passwdstrength").style.display = "none";
       }   
+
+
       function hideall() {
         document.getElementById("passwdstrength").style.display = "none";
         document.getElementById("emailError").style.display = "none";
         document.getElementById("passwordError").style.display = "none";
       }   
+
+      
+      function enableSignUpButton() {
+      var passwordMatch = validatePasswords();
+      var validEmail = validateEmail();
+      var signUpButton = document.getElementById("signupBtn");
+
+    if (passwordMatch && validEmail) {
+      signUpButton.disabled = false;
+     } else {
+      signUpButton.disabled = true;
+    }
+  }
+  document.getElementById("signupButton").disabled = true;
+  function toggleSignupButton() {
+  var password = document.getElementById("passwordSignup").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+  var emailInput = document.getElementById('emailInput').value;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (password === confirmPassword && emailRegex.test(emailInput)) {
+    document.getElementById("signupButton").disabled = false;
+  } else {
+    document.getElementById("signupButton").disabled = true;
+  }
+}
+document.getElementById("passwordSignup").addEventListener("keyup", toggleSignupButton);
+document.getElementById("confirmPassword").addEventListener("keyup", toggleSignupButton);
+document.getElementById("emailInput").addEventListener("keyup", toggleSignupButton);
+
       </script>
 </body>
 </html>

@@ -413,25 +413,35 @@ font-weight: 500;
 }
 .epopup {
   position: fixed;
-  left: 52%;
+  left: 82%;
   transform: translateX(-50%);
-  width: 340px;
+  width: 240px;
   background: transparent;
-  /* background: linear-gradient(135deg, rgba(56, 56, 56, 0), rgba(51, 51, 51, 0)); */
-  /* backdrop-filter: blur(100px); */
-  /* -webkit-backdrop-filter: blur(90px); */
-  /* box-shadow: 0 0px 15px 0px #275EFE; */
+  background: linear-gradient(135deg, rgba(56, 56, 56, 0), rgba(51, 51, 51, 0)); 
+  backdrop-filter: blur(100px); 
+  -webkit-backdrop-filter: blur(90px); 
+  box-shadow: 0 0px 15px 0px #ff0000; 
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
-  text-align: right;
+  text-align: center;
   display: none;  
+  animation: fadeOutPopup 10s forwards; 
 }
 .epopup .etext {
   font-size: 14px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-weight: 300;
   color: red;
+}
+@keyframes fadeOutPopup {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+      visibility: hidden; 
+  }
 }
 .hows{
   background: #f1f1f1;
@@ -1255,6 +1265,43 @@ transform: rotateX(30deg);
   opacity: 1;
   left: 0;
  }
+ .logoutb{
+  position: relative;
+  margin-top: -41.3%;
+  margin-left: 90%;
+  transform: translateX(-50%);
+  text-align: center;
+ }
+ .logoutb button{
+  border: 2px solid#2d79f3;
+  color: #2d79f3;
+  background-color: transparent;
+  border-radius: 5px;
+  background-size: 100% auto;
+  font-family: inherit;
+  font-size: 17px;
+  padding: 0.6em 1.5em;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.logoutb button:hover{
+  background-position: right center;
+  background-size: 200% auto;
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse512 1.5s infinite;
+ }
+ @keyframes pulse512 {
+  0% {
+   box-shadow: 0 0 0 0 #4040ff;
+  }
+ 
+  70% {
+   box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+ 
+  100% {
+   box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+  }   
+}
 :root{
     --color_Blue: #3f93f1;
     --color_Dark1: #1e1e1e;
