@@ -57,6 +57,9 @@ def login():
             else:
                 flash('Invalid Email or Password !','epopup1')
                 return redirect(url_for('login'))
+        else:
+            flash('Invalid Email or Password !','epopup1')
+            return redirect(url_for('login'))
 
     return render_template("login.html",form=form,form1=form1)
 
@@ -70,3 +73,11 @@ def browse():
         flash("Please Login to continue !",'epopup1')
         return redirect(url_for('login'))
     return render_template('browse.html')
+
+@app.route("/logout")
+def logout():
+    session['loggedin'] = False
+    session.pop("userid",None)
+    session.pop("email",None)
+    return redirect(url_for('home'))
+    
