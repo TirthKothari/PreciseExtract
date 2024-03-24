@@ -15,13 +15,16 @@ def disconnect():
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    try:
+        return render_template("home.html",session=session['loggedin'])
+    except KeyError:
+        return render_template("home.html",session=False)
 
 @app.route("/login" ,methods=['GET' , 'POST'] )
 def login():
     try:
         if session['loggedin'] == True:
-            return redirect(url_for('browse'))
+            return redirect(url_for('home'))
     except:
         pass
     form1 = RegistrationForm()
@@ -53,7 +56,7 @@ def login():
                 session['loggedin'] = True
                 session['userid'] = user[0]
                 session['email'] = user[1]
-                return redirect(url_for('browse'))
+                return redirect(url_for('home'))
             else:
                 flash('Invalid Email or Password !','epopup1')
                 return redirect(url_for('login'))
@@ -64,15 +67,15 @@ def login():
     return render_template("login.html",form=form,form1=form1)
 
 @app.route("/browse")
-def browse():
-    try:
-        if session['loggedin'] != True:
-            flash("Please Login to continue !",'epopup1')
-            return redirect(url_for('login'))
-    except:
-        flash("Please Login to continue !",'epopup1')
-        return redirect(url_for('login'))
-    return render_template('browse.html')
+# def browse():
+#     try:
+#         if session['loggedin'] != True:
+#             flash("Please Login to continue !",'epopup1')
+#             return redirect(url_for('login'))
+#     except:
+#         flash("Please Login to continue !",'epopup1')
+#         return redirect(url_for('login'))
+#     return render_template('browse.html')
 
 @app.route("/logout")
 def logout():

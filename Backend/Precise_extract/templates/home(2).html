@@ -19,11 +19,7 @@
             </div>
             <div class="nav-log">
                 <ul>
-                    {%if session !=true %}
                     <li><button onclick="location.href='{{url_for('login')}}'">Log In / Sign Up</button></li>
-                    {%else%}
-                    <li><button onclick="location.href='{{url_for('logout')}}'">Logout</button></li>
-                    {%endif%}
                 </ul>
             </div>
         </nav>
@@ -34,8 +30,8 @@
             <p2>&nbsp;Easily&nbsp;.&nbsp; Efficiently&nbsp;.&nbsp; Accurately</p2>
         </div>   
         <div class="drag-area" id="dragArea">
-            <header>Drag & Drop your file here, or browse</header><br><br>
-            <button class="Documents-btn" id="uploadButton" >
+            <header>Drag & Drop your file here, or browse</header><br><br><br>
+            <button class="Documents-btn" id="uploadButton">
                 <span class="folderContainer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +112,7 @@
                 <p class="textbrws">Browse File</p>
                 <input type="file" accept=".pdf" id="fileInput" hidden multiple/> 
               </button>
-        </div>        
+        </div>  
         <div class="desc">
             <p>Preserve your valuable time and avert any mistakes with Precise Extract's table extraction tool for PDFs/Images.<br> This tool allows for real-time extraction of tables from PDF files and images with absolute precision.</p>
         </div>
@@ -353,20 +349,12 @@
             </div>
         </footer>
     </section>
-    <script src="{{ url_for('static', filename='script1.js') }}"></script>
     <script>
         const dragArea = document.getElementById('dragArea');
         const brwsheader = document.querySelector('.brwsheader');
-        let session = JSON.parse("{{session | tojson}}")
+    
         document.getElementById('uploadButton').addEventListener('click', function() {
-            if (session != true){
-                
-                location.href="{{url_for('login')}}"
-            }
-            else {
-                fileInput.click()
-            }
-            
+            fileInput.click();
         });
     
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -393,7 +381,7 @@
                 updateProgress(files.length, files.length);
             }
         }
-    
     </script>
+    <script src="{{ url_for('static', filename='script1.js') }}"></script>
 </body>
 </html>
