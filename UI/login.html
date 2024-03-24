@@ -45,7 +45,7 @@
                   <input type="checkbox">
                   <span>Remember me </span>
                   </div>
-                  <span class="span">Forgot password?</span>
+                  <span class="span" id="forgotPassword">Forgot password?</span>
                 </div>
                 <button class="button-submit">Log In</button>
                 <p class="p line">Or With</p>
@@ -132,6 +132,19 @@
             *Invalid Email Id
           </span>
         </div>
+        <div class="resetpop" id="resetpopup">
+            <div class="logo-container">
+              Forgot Password 
+            </div>
+            <form class="rform">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Enter your email" required="">
+              </div>
+      
+              <button class="form-submit-btn" type="submit">Reset</button>
+            </form>
+          </div>
         <script>
           var x = document.getElementById("login");
           var y = document.getElementById("signup");
@@ -278,6 +291,20 @@
 document.getElementById("passwordSignup").addEventListener("keyup", toggleSignupButton);
 document.getElementById("confirmPassword").addEventListener("keyup", toggleSignupButton);
 document.getElementById("emailInput").addEventListener("keyup", toggleSignupButton);
+   
+var forgotPassword = document.getElementById('forgotPassword');
+var resetPopup = document.getElementById('resetpopup');
+
+forgotPassword.addEventListener('click', function() {
+  resetPopup.style.display = 'block';
+});
+
+document.body.addEventListener('click', function(event) {
+  if (!resetPopup.contains(event.target) && event.target !== forgotPassword) {
+    resetPopup.style.display = 'none';
+  }
+});
+
 
       </script>
 </body>
