@@ -9,13 +9,11 @@
 </head>
 <body>
     <div class="sidebar close">
-
         <div class="logo-box">
             <img src="logoslide.png" class="logo-image"> 
         </div>  
             <div class="logo-name">Precise Extract
         </div>     
-
         <ul class="sidebar-list">
             <li>
                 <div class="extrac">
@@ -23,12 +21,14 @@
                         <i class='bx bx-table'></i>
                         <span class="extname">Extraction</span>
                     </a>             
-                    <i class='bx bx-dots-horizontal-rounded' id="dot-menu-icon" style='color:#b9b5b5'></i>         
-                </div>
-                <div id="dot-menu-box" class="dot-menu-box">
-                    <div class="info"><span>Add Group</span></div>
-                    <div class="info"><span>Export All</span></div>
-                    <div class="info"><span>Delete All</span></div>
+                    <div class="toolty">
+                        <span class="tooltipi">Add Group</span>
+                        <i class='bx bx-folder-plus bx-flip-horizontal' style='color:#b9b5b5'  ></i>
+                    </div>    
+                    <div class="tooltyd">
+                    <span class="tooltipid">Delete All Group</span>             
+                    <i class='bx bx-folder-minus bx-flip-horizontal' style='color:#b9b5b5' ></i>     
+                    </div>
                 </div>
                 <div class="hovericon">
                     <p>EXTRACTION</p>
@@ -42,12 +42,14 @@
                         <span class="name">Group</span>
                     </a>
                     <i class='bx bx-chevron-right'></i>
-                    <i class='bx bx-dots-horizontal-rounded' id="dot-menu-grp-icon" style='color:#b9b5b5' ></i>
-                </div>
-                <div id="dot-menu-grp-box" class="dot-menu-grp-box">
-                    <div class="grpinfo"><span>Add File</span></div>
-                    <div class="grpinfo"><span>Export Group</span></div>
-                    <div class="grpinfo"><span>Delete Group</span></div>
+                    <div class="tooltydel">
+                    <span class="tooltipidel">Delete Group</span> 
+                    <i class='bx bxs-trash'></i>
+                    </div>
+                     <div class="tooltyf">
+                   <span class="tooltipif">Add Files</span> 
+                    <i class='bx bxs-file-plus'></i>
+                     </div> 
                 </div>
                 <div class="hovericon">
                     <p>GROUP</p>
@@ -55,35 +57,8 @@
                 <div class="submenu">
                     <p>Table 1</p>
                     <p>Table 2</p>
-                </div>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class=''></i>
-                        <span class="name">Group.1</span>
-                    </a>
-                    <i class='bx bx-chevron-right'></i>
-                    <i class='bx bx-dots-horizontal-rounded' style='color:#b9b5b5' ></i>
-                </div>
-                <div class="submenu">
-                    <p>Table 1</p>
-                    <p>Table 2</p>
-                    <p>Table 3</p>
-                    <p>Table 4</p>
-                </div>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class=''></i>
-                        <span class="name">Group.2</span>
-                    </a>
-                    <i class='bx bx-chevron-right'></i>
-                    <i class='bx bx-dots-horizontal-rounded' style='color:#b9b5b5' ></i>
-                </div>
-                <div class="submenu">
-                    <p>Table 1</p>
-                    <p>Table 2</p>
-                    <p>Table 3</p>
-                </div>
-            </div>
+                </div> 
+                </div> 
             </li>
             <li>
                 <div class="titleacc">
@@ -101,7 +76,7 @@
                     <a href="#" class="link">
                         <i class='bx bx-spreadsheet' style='color:#b9b5b5'  ></i>
                         <button type="button" class="buttonexpo">
-                            <span class="button__text">Export Table</span>
+                            <span class="button__text">Export</span>
                             <span class="button__icon"><svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg"><path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path><path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path><path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path></svg></span>
                           </button>
                     </a>
@@ -117,24 +92,22 @@
             <!-- <i class='bx bx-menu' style='color:#b9b5b5'></i> -->
         </div>
     </section>
-    <div class="overlay" id="overlay"></div>
     <script>
-        const listItems = document.querySelectorAll(".sidebar-list li");
-        listItems.forEach((item) => {
+    const listItems = document.querySelectorAll(".sidebar-list li");
+    listItems.forEach((item) => {
         item.addEventListener("click", () => {
-        let isActive = item.classList.contains("active");
-        listItems.forEach((el) => {
-        el.classList.remove("active");
-        });
-            if (isActive) item.classList.remove("active");
-         else item.classList.add("active");
+            let isActive = item.classList.contains("active");
+            listItems.forEach((el) => {
+                el.classList.remove("active");
             });
+            if (isActive) item.classList.remove("active");
+            else item.classList.add("active");
         });
+    });
 
-        const toggleSidebar = document.querySelector(".toggle-sidebar");
+    const toggleSidebar = document.querySelector(".toggle-sidebar");
         const logo = document.querySelector(".logo-box");
         const sidebar = document.querySelector(".sidebar");
-        const overlay = document.getElementById("overlay");
         toggleSidebar.addEventListener("click", () => {
         sidebar.classList.toggle("close");
         });
@@ -160,26 +133,6 @@
         });
     });
 });
-
-    document.addEventListener("DOMContentLoaded", function() {
-    var menuIcon = document.getElementById("dot-menu-icon");
-    var menuBox = document.getElementById("dot-menu-box");
-
-    menuIcon.addEventListener("click", function() {
-        menuBox.classList.toggle("active");
-    });
-});
-
-        document.addEventListener("DOMContentLoaded", function() {
-        var menuIcon = document.getElementById("dot-menu-grp-icon");
-        var menuBox = document.getElementById("dot-menu-grp-box");
-
-        menuIcon.addEventListener("click", function() {
-         menuBox.classList.toggle("active");
-        });
-    });
-
-
     </script>
 </body>
 </html>
