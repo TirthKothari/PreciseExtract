@@ -53,7 +53,7 @@
                     {{form.remember.label()}}
                   <!-- <span>Remember me </span> -->
                   </div>
-                  <span class="span">Forgot password?</span>
+                  <span class="span" id="forgotPassword">Forgot password?</span>
                 </div>
                 {{form.submit(class='button-submit')}}
                 <!-- <button class="button-submit">Log In</button> -->
@@ -162,6 +162,24 @@
             *Invalid Email Id
           </span>
         </div>
+
+        <div class="resetpop" id="resetpopup">
+          <div class="logo-container">
+            Forgot Password 
+          </div>
+          <form class="rform" action="" method="POST" >
+            {{ resetform.hidden_tag() }}
+            <div class="form-group">
+              {{resetform.email.label()}}
+              <!-- <label for="email">Email</label> -->
+              {{resetform.email(id='email', placeholder='Enter your Email' , required='')}}
+              <!-- <input type="text" id="email" name="email" placeholder="Enter your email" required=""> -->
+            </div>
+            {{resetform.submit(class='form-submit-btn')}}
+            <!-- <button class="form-submit-btn" type="submit">Reset</button> -->
+          </form>
+        </div>
+
         <script>
           var x = document.getElementById("login");
           var y = document.getElementById("signup");
@@ -318,6 +336,20 @@
 document.getElementById("passwordSignup").addEventListener("keyup", toggleSignupButton);
 document.getElementById("confirmPassword").addEventListener("keyup", toggleSignupButton);
 document.getElementById("emailInput").addEventListener("keyup", toggleSignupButton);
+
+
+var forgotPassword = document.getElementById('forgotPassword');
+var resetPopup = document.getElementById('resetpopup');
+
+forgotPassword.addEventListener('click', function() {
+  resetPopup.style.display = 'block';
+});
+
+document.body.addEventListener('click', function(event) {
+  if (!resetPopup.contains(event.target) && event.target !== forgotPassword) {
+    resetPopup.style.display = 'none';
+  }
+});
     //   var signupButton = document.querySelector('#signup .button-submit');
     //   signupButton.disabled = true;
     //   document.addEventListener("DOMContentLoaded", function() {

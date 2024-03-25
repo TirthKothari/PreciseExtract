@@ -22,7 +22,7 @@
                     {%if session !=true %}
                     <li><button onclick="location.href='{{url_for('login')}}'">Log In / Sign Up</button></li>
                     {%else%}
-                    <li><button onclick="location.href='{{url_for('logout')}}'">Logout</button></li>
+                    <li><button onclick="location.href='{{url_for('main')}}'">Open main page</button></li>
                     {%endif%}
                 </ul>
             </div>
@@ -364,6 +364,7 @@
                 location.href="{{url_for('login')}}"
             }
             else {
+                
                 fileInput.click()
             }
             

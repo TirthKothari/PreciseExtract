@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precise Extract - Reset Password</title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+}
+    .resetpage{
+    height: 100vh;
+    width: 100%;
+    background:radial-gradient(77.2% 114.39999999999999% at 51.4% -3.4000000000000004%, #19194d 0%, rgba(0, 0, 0, 1) 48.10810260944537%);
+    background-position: center;
+    flex-wrap: wrap;
+    position: fixed;
+}
+.form-container {
+width: 500px;
+height: 500px;
+margin-top: 100px;
+margin-left: 500px;
+  background-color: #ffffff00;
+  padding: 45px 30px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.084), 0px 2px 20px rgba(0, 0, 0, 0.168);
+}
+
+.form-container button:active {
+  scale: 0.95;
+}
+
+.form-container .logo-container {
+  text-align: center;
+  font-weight: 600;
+  font-size: 25px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.form-container .form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-container .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 200;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.form-container .form-group input {
+  width: 400px;
+  padding: 15px 16px;
+  border-radius: 6px;
+  font-family: inherit;
+  border: 3px solid #535353;
+}
+
+.form-container .form-group input::placeholder {
+  opacity: 0.8;
+}
+
+.form-container .form-group input:focus {
+  outline: none;
+  border-color: #1778f2;
+}
+
+.form-container .form-submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 500;
+  color: #fff;
+  background-color: #212121;
+  border: none;
+  width: 100%;
+  padding: 15px 16px;
+  font-size: inherit;
+  gap: 8px;
+  margin: 32px 0;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+}
+
+.form-container .form-submit-btn:hover {
+  background-color: #313131;
+}
+
+.form-container .link {
+  color: #1778f2;
+  text-decoration: none;
+}
+
+.form-container .signup-link {
+  align-self: center;
+  font-weight: 700;
+  font-size: 17px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.form-container .signup-link .link {
+  font-weight: 400;
+}
+
+.form-container .link:hover {
+  text-decoration: none;
+}
+.epopup1 {
+  position: fixed;
+  left: 82%;
+  transform: translateX(-50%);
+  width: 240px;
+  background: linear-gradient(135deg, rgba(56, 56, 56, 0), rgba(51, 51, 51, 0));
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(90px);
+  box-shadow: 0 0px 15px 0px red;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: none;
+  animation: fadeOutPopup 10s forwards  
+}
+.epopup1 .etext1 {
+  font-size: 17px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 200;
+  color: red;
+}
+@keyframes fadeOutPopup {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+      visibility: hidden; 
+  }
+}
+
+    </style>
+<body>
+    <section class="resetpage">
+        <div class="form-container">
+            <div class="logo-container">
+              Reset Password 
+            </div>
+            <form class="form" action="" method="POST">
+              {{ form.hidden_tag() }}
+              <div class="form-group">
+                {{form.new_password.label()}}
+                {{form.new_password(placeholder='Enter new password' , required='')}}
+                <!-- <label for="password">Enter new password</label>
+                <input type="password" placeholder="Enter your Password"  required=""> -->
+              </div>
+              <div class="form-group">
+                {{form.confirm_new_password.label()}}
+                {{form.confirm_new_password(placeholder='Enter new password again',required='')}}
+                <!-- <label for="password">Confirm password</label>
+                <input type="password" placeholder="Enter your Password"  required=""> -->
+              </div>
+              {{form.submit(class='form-submit-btn')}}
+              <!-- <button class="form-submit-btn" type="submit">Reset</button> -->
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category,message in messages %}
+              <div class="epopup1">
+                <span class="etext1">
+                  {{ message }}
+                </span>
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% set messages = undefined%}
+        {% endwith %}
+            <p class="signup-link">
+              <a href="{{url_for('login')}}" class="signup-link link"> Go Back</a>
+            </p>
+          </div>
+        </section>
+        <script>
+          window.addEventListener('DOMContentLoaded', function() {
+          const epopups = document.querySelectorAll('.epopup1');
+          let topPosition = 59; 
+          epopups.forEach(function(epopup) {
+          epopup.style.top = topPosition + '%';
+          topPosition -= 13.5; 
+          epopup.style.display = "block";
+          setTimeout(function() {
+            epopup.style.display = "none";
+            epopup.classList.remove("fade-out");
+        }, 4000);
+            });
+          }); 
+        </script>
+</body>
+</html>

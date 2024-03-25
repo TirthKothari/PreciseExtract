@@ -30,3 +30,12 @@ class RegistrationForm(FlaskForm):
     #             print("Email already registred")
     #             raise ValidationError('Email already registred')
 
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email',validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+class ResetPasswordForm(FlaskForm):
+    new_password = PasswordField('New Password', validators=[DataRequired()])
+    confirm_new_password = PasswordField('Confirm New Password',validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Reset Password')
