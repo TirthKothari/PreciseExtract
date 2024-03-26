@@ -45,7 +45,7 @@
                      <div class="tooltyf">
                    <span class="tooltipif">Add Files</span> 
                     <i id="fileUploadIcon" class='bx bxs-file-plus'></i>
-                    <input type="file" id="fileInput" style="display: none;" accept=".pdf" multiple>
+                    <input type="file" id="fileInput" style="display: none;" accept=".pdf, .jpg, .jpeg, .png" multiple>
                      </div> 
                      <div class="tooltydel">
                         <span class="tooltipidel">Delete Group</span> 
@@ -65,7 +65,7 @@
                 <div class="titleacc">
                     <a href="#" class="link">
                         <i class='bx bx-user' ></i>
-                        <span class="accname">Account</span>
+                        <span class="accname" id="accname">Account</span>
                     </a>
                 </div>
                 <div class="hovericon">
@@ -131,6 +131,15 @@
       </div>
       <div class="accpopup" id="accpop">
         <div class="nmcard">
+            <div class="accbackg"></div>
+            <div class="profimg" id="profile-image">
+                <img src="profile.png" id="profile-pic">
+                <input type="file" id="profile-input" style="display: none;" accept=".jpg, .jpeg, .png">
+            </div>  
+            <input class="emailshow" name="email" placeholder="" type="email">     
+            <button class="logoutbtn">
+                Log out
+              </button>              
         </div>
       </div>
     <script>
@@ -205,14 +214,68 @@
     document.getElementById('fileInput').click();
     });
     document.getElementById('fileInput').addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-    if (file.type === 'application/pdf') {
-      console.log('Selected file:', file.name);
-    } else {
+    const files = this.files;
+    if (files.length > 0) {
+        validateFiles(files);
     }
-  }
+    });
+    function validateFiles(files) {
+    const allowedFormats = ['.jpeg', '.jpg', '.png', '.pdf'];
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileNameParts = file.name.split('.');
+        const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+        if (!allowedFormats.includes('.' + fileExtension)) {
+            alert('Invalid file format. Please select files in .jpeg, .jpg, .png, or .pdf format.');
+            return;
+        }
+    }
+    handleFiles(files);
+    }
+    function handleFiles(files) {
+    console.log("Handling files:", files);
+    }
+
+    document.getElementById('accname').addEventListener('click', function(event) {
+        event.stopPropagation(); 
+        document.getElementById('accpop').style.display = 'block';
+    });
+
+    document.body.addEventListener('click', function(event) {
+        var accpop = document.getElementById('accpop');
+        var accname = document.getElementById('accname');
+        var target = event.target;
+        if (target !== accpop && !accpop.contains(target) && target !== accname) {
+            accpop.style.display = 'none';
+        }
+    });
+    const profileImage = document.getElementById('profile-image');
+    const profilePic = document.getElementById('profile-pic');
+    const fileInput = document.getElementById('profile-input');
+
+    profilePic.addEventListener('click', function() {
+    fileInput.click(); 
+    });
+
+    fileInput.addEventListener('change', function() {
+    const file = this.files[0];
+    
+    if (file) {
+        if (/\.(jpe?g|png)$/i.test(file.name)) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                profilePic.src = reader.result;
+            };
+        } else {
+            alert('Please select a valid image file (JPEG, JPG, or PNG).');
+            this.value = ''; 
+        }
+    }
 });
+
+
+
     </script>
 </body>
 </html>

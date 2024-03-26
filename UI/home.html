@@ -110,7 +110,7 @@
                   </svg>
                 </span>
                 <p class="textbrws">Browse File</p>
-                <input type="file" accept=".pdf" id="fileInput" hidden multiple/> 
+                <input type="file" accept=".pdf,.jpeg,.jpg,.png" id="fileInput" hidden multiple/>
               </button>
         </div>        
         <div class="desc">
@@ -351,37 +351,51 @@
     </section>
     <script src="script1.js"></script>
     <script>
-         const dragArea = document.getElementById('dragArea');
-        const brwsheader = document.querySelector('.brwsheader');
-    
-        document.getElementById('uploadButton').addEventListener('click', function() {
-            fileInput.click();
-        });
-    
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dragArea.addEventListener(eventName, preventDefaults, false);
-        });
-    
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-    
-        dragArea.addEventListener('drop', handleDrop, false);
-    
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            handleFiles(files);
-        }
-    
-        function handleFiles(files) {
-            if (files.length > 0) {
-                showPopup();
-                brwsheader.classList.add('blur');
-                updateProgress(files.length, files.length);
+       const dragArea = document.getElementById('dragArea');
+       const fileInput = document.getElementById('fileInput');
+
+    document.getElementById('uploadButton').addEventListener('click', function() {
+    fileInput.click();
+    });
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dragArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    }
+
+    dragArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    validateFiles(files);
+    }
+
+    function validateFiles(files) {
+    const allowedFormats = ['.jpeg', '.jpg', '.png', '.pdf'];
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileNameParts = file.name.split('.');
+        const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+        if (!allowedFormats.includes('.' + fileExtension)) {
+            alert('Invalid file format. Please select files in .jpeg, .jpg, .png, or .pdf format.');
+            return;
             }
         }
+    handleFiles(files);
+    }
+    function handleFiles(files) {
+    console.log("Handling files:", files);
+    }
+
+
+   
+    
+
     
     </script>
 </body>
