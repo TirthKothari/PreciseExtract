@@ -1,12 +1,15 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect,request,jsonify,make_response
 from Precise_extract import app,mail
 from Precise_extract import mysql
 from Precise_extract import bcrypt
 from Precise_extract import session,socketio
 from Precise_extract.forms import RegistrationForm,LoginForm,RequestResetForm,ResetPasswordForm
-import uuid
+import uuid,os,threading
 from itsdangerous import URLSafeTimedSerializer as Serializer
 from flask_mail import Message
+from werkzeug.utils import secure_filename
+import jwt,datetime
+from jose import jwe
 
 # -----------------functions-----------------
 def get_reset_token(user):
@@ -20,8 +23,7 @@ def verify_reset_token(token):
         return None
     return user_id
 def send_reset_email(user):
-    token  = get_reset_token(user[0])
-    session['reset_email'] = user[1]
+    token  = get_reset_token(int(user[0]))
     msg = Message("Password Reset",sender='noreply@precise_extract.com',recipients=[user[1]])
     msg.body = f'''To reset your password, visit the following link:
 {url_for('reset_token',token=token, _external=True)}
@@ -30,6 +32,10 @@ if you did not  make this request then simply  ignore this email !
 '''
     mail.send(msg)
     
+
+def saving_file(file,filename):
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+
 # -----------------------------functions end--------------------------
 
 
@@ -63,7 +69,8 @@ def login():
         curr.execute(f"SELECT email FROM user WHERE email='{form1.email.data}'")
         if len(curr.fetchall()) == 0:
             hashed_password = bcrypt.generate_password_hash(form1.password.data).decode('utf-8')
-            curr.execute(f"INSERT INTO `user`(`userid`, `email`, `password`) VALUES ('{(uuid.uuid4().int)}','{form1.email.data}','{hashed_password}')")
+            userid = str(uuid.uuid4().int)
+            curr.execute(f"INSERT INTO `user`(`userid`, `email`, `password`) VALUES ('{userid}','{form1.email.data}','{hashed_password}')")
             mysql.connection.commit()
             curr.close()
             # flash(f'Registered Successfully !')
@@ -81,8 +88,9 @@ def login():
         curr.close()
         if user:
             if bcrypt.check_password_hash(user[2],form.password.data):
+                session.permanent = form.remember.data
                 session['loggedin'] = True
-                session['userid'] = user[0]
+                session['userid'] = int(user[0])
                 session['email'] = user[1]
                 return redirect(url_for('home'))
             else:
@@ -123,10 +131,9 @@ def reset_token(token):
         if form.validate_on_submit():
             curr = mysql.connection.cursor()
             hashed_password = bcrypt.generate_password_hash(form.confirm_new_password.data).decode('utf-8')
-            curr.execute(f"UPDATE `user` SET `password`='{hashed_password}' WHERE `email`='{session['reset_email']}'")
+            curr.execute(f"UPDATE `user` SET `password`='{hashed_password}' WHERE `userid`='{user}'")
             mysql.connection.commit()
             curr.close()
-            session.pop('reset_email',None)
             flash("Your password has been updated")
             return redirect(url_for('login'))
         return render_template("reset.html",form=form)
@@ -144,4 +151,44 @@ def logout():
 #-----------------------------main page---------------------------
 @app.route("/main")
 def main():
+    if session['loggedin'] == False:
+        flash("Login to continue")
+        return redirect(url_for('login'))
     return render_template('main.html')
+
+#---------------------------upload files------------------
+@app.route("/upload_files/<tablename>",methods=['POST'])
+def upload_files(tablename):
+    if session['loggedin'] == False:
+        flash("login to continue")
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        for _file in request.files:
+            print(_file)
+            file = request.files[str(_file)]
+            filename = secure_filename(file.filename)
+            path = os.path.join(app.config['UPLOAD_FOLDER'],str(session['userid']),tablename)
+            #task = threading.Thread(target=saving_file,args=(file,filename))
+            if not os.path.exists(path):
+                os.makedirs(path)
+            file.save(os.path.join(path,filename))
+            #task.start()
+            print(file.filename)
+        return jsonify({'msg':'files revcived successfully'}),200
+    #     if 'files[]' not in request.files:
+    #         return jsonify({"msg":"No files"}),400
+    # files = request.files.getlist('files[]')
+    # for file in files:
+
+#------------------------- JWT for FASTAPI server--------------------------
+@app.route("/get_token",methods=['GET'])
+def get_token():
+    if session['loggedin'] == False:
+        flash("login to continue")
+        return redirect(url_for('login'))
+    # dt = datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(seconds=30)
+    payload = {"userid":str(session['userid']),"iat":datetime.datetime.now(datetime.timezone.utc)}
+    token = jwt.encode(payload,app.config['SECRET_KEY'])
+    token = jwe.encrypt(token,app.config['AES_SECRET_KEY'],algorithm='A256KW',encryption='A256GCM')
+    # print(token.decode('ascii'))
+    return jsonify({"token":token.decode('ascii')}),200

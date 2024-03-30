@@ -22,7 +22,7 @@
                     {%if session !=true %}
                     <li><button onclick="location.href='{{url_for('login')}}'">Log In / Sign Up</button></li>
                     {%else%}
-                    <li><button onclick="location.href='{{url_for('main')}}'">Open main page</button></li>
+                    <li><button onclick="location.href='{{url_for('logout')}}'">logout</button></li>
                     {%endif%}
                 </ul>
             </div>
@@ -114,7 +114,7 @@
                   </svg>
                 </span>
                 <p class="textbrws">Browse File</p>
-                <input type="file" accept=".pdf" id="fileInput" hidden multiple/> 
+                <input type="file" accept=".pdf,.jpg,.jpeg,.png" id="fileInput" , oninput="handleinput(this.files)" hidden multiple/> 
               </button>
         </div>        
         <div class="desc">
@@ -353,8 +353,52 @@
             </div>
         </footer>
     </section>
+    <div id="popup">
+        <div class="loader">
+            <div>
+              <ul>
+                <li>
+                  <svg fill="currentColor" viewBox="0 0 90 120">
+                    <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                  </svg>
+                </li>
+                <li>
+                  <svg fill="currentColor" viewBox="0 0 90 120">
+                    <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                  </svg>
+                </li>
+                <li>
+                  <svg fill="currentColor" viewBox="0 0 90 120">
+                    <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                  </svg>
+                </li>
+                <li>
+                  <svg fill="currentColor" viewBox="0 0 90 120">
+                    <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                  </svg>
+                </li>
+                <li>
+                  <svg fill="currentColor" viewBox="0 0 90 120">
+                    <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                  </svg>
+                </li>
+                <li>
+                  <svg fill="currentColor" viewBox="0 0 90 120">
+                    <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                  </svg>
+                </li>
+              </ul>
+            </div><span>Processing...</span></div>
+              <button class="dbtn" onclick="location.href='{{url_for('main')}}'">
+                <span>Done</span>
+              </button>    
+                </div>
+    </div>
     <script src="{{ url_for('static', filename='script1.js') }}"></script>
     <script>
+        const popup = document.getElementById('popup');
+        const progressBarInner = document.querySelector('.progress-bar-inner');
+        const progressText = document.getElementById('progress-text');
         const dragArea = document.getElementById('dragArea');
         const brwsheader = document.querySelector('.brwsheader');
         let session = JSON.parse("{{session | tojson}}")
@@ -384,17 +428,122 @@
         function handleDrop(e) {
             const dt = e.dataTransfer;
             const files = dt.files;
-            handleFiles(files);
+            console.log(typeof files)
+            console.log(files.length)
+            
+            handleinput(files)
+            // window.location.replace("{{url_for('main')}}")
+            // handleFiles(files);
         }
     
-        function handleFiles(files) {
-            if (files.length > 0) {
-                showPopup();
-                brwsheader.classList.add('blur');
-                updateProgress(files.length, files.length);
-            }
+        // function handleFiles(files) {
+        //     if (files.length > 0) {
+        //         showPopup();
+        //         brwsheader.classList.add('blur');
+        //         updateProgress(files.length, files.length);
+        //     }
+        // } 
+        
+    function ValidateInput(files) {
+        let approved_ext = ["jpg",'jpeg','png','pdf'];
+        let inp_files = new FormData() ;
+        if (files.length > 0){
+           
+            Object.keys(files).forEach(key => {
+                let filename = files[key].name
+                ext = filename.split(".").pop()
+                if (approved_ext.includes(ext.toLowerCase())){
+                    inp_files.append(`files`,files[key])
+                }
+                else{
+                    console.log(`invalid ${filename}`)
+                }
+
+            
+            });
+            return inp_files
+        }
+        else{
+            console.log("No files selected")
+            return "No files selected"
+        }
+        if(inp_files.length==0){
+            console.log("Invalid Files selected")
+            return "Invalid Files selected"
+        }
+    }
+
+    function handleinput(files){
+        // showPopup();
+        // brwsheader.classList.add('blur');
+        let inp_files = new FormData()
+        tablename = "groupye4"
+        let url = "http://127.0.0.1:8000/upload_files/"+tablename
+        inp_files=ValidateInput(files)
+        if (typeof inp_files != 'object'){
+            console.log(inp_files)
+            return 0
+        }
+        console.log(typeof inp_files)
+        
+
+        fetch("{{url_for('get_token')}}")
+        .then(data=>
+            data.json()
+        )
+        .then(token =>{
+            const _token = token['token']
+            let request = new Request(url,{
+            mode:"cors",
+            body : inp_files,
+            method:"POST",
+            headers : new Headers({
+                "Authorization" : "Bearer "+_token,
+                "Access-Control-Allow-Origin":"http://127.0.0.1:8000",
+                "Access-Control-Allow-Credentials":'true'
+            }),
+        });
+        fetch(request)
+         .then((response)=>
+            response.json())
+         .then((responsejson)=>{
+
+            console.log(responsejson)
+         })
+         .catch(console.warn)
+        });
+        // let request = new Request(url,{
+        //     mode:"cors",
+        //     body : inp_files,
+        //     method:"POST",
+        //     headers : new Headers({
+        //         "Authorization" : "Bearer "+_token,
+        //     }),
+        // });
+        // fetch(request)
+        //  .then((response)=>
+        //     response.json())
+        //  .then((responsejson)=>{
+
+        //     console.log(responsejson)
+        //  })
+        //  .catch(console.warn)
+    }
+
+    function showPopup() {
+            popup.style.display = 'block';
+            window.addEventListener('click', handleOutsideClick);
         }
     
+    function hidePopup() {
+            popup.style.display = 'none';
+            brwsheader.classList.remove('blur');
+            window.removeEventListener('click', handleOutsideClick);
+        }
+
+        
+    
+
     </script>
 </body>
 </html>

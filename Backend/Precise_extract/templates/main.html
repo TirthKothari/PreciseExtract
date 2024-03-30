@@ -6,189 +6,213 @@
 <title>Precise Extract - Edit & Review</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-<link rel="shortcut icon" href="assets/img/kxp_fav.png" type="image/x-icon">
 </head>
 <body>
     <div class="sidebar close">
-        <!-- ========== Logo ============  -->
-        <a href="#" class="logo-box">
-            <i class='bx bxl-xing'></i>
-            <div class="logo-name">yourLogo</div>
-        </a>
-
-        <!-- ========== List ============  -->
+        <div class="logo-box">
+            <img src="{{url_for('static',filename='img/logoslide.png')}}" class="logo-image"> 
+        </div>  
+            <div class="logo-name">Precise Extract
+        </div>     
         <ul class="sidebar-list">
-            <!-- -------- Non Dropdown List Item ------- -->
             <li>
-                <div class="title">
+                <div class="extrac">
                     <a href="#" class="link">
-                        <i class='bx bx-grid-alt'></i>
-                        <span class="name">Dashboard</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                        <i class='bx bx-table'></i>
+                        <span class="extname">Extraction</span>
+                    </a>             
+                    <div class="toolty">
+                        <span class="tooltipi">Add Group</span>
+                        <i class='bx bx-folder-plus bx-flip-horizontal' style='color:#b9b5b5' id="agIcon"></i>
+                    </div>    
+                    <div class="tooltyd">
+                    <span class="tooltipid">Delete All Groups</span>             
+                    <i class='bx bx-folder-minus bx-flip-horizontal' style='color:#b9b5b5' id="deletegIcon" ></i>     
+                    </div>
                 </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Dashboard</a>
-                    <!-- submenu links here  -->
+                <div class="hovericon">
+                    <p>EXTRACTION</p>
                 </div>
             </li>
-
-            <!-- -------- Dropdown List Item ------- -->
             <li class="dropdown">
+                <div class="grpsec">
                 <div class="title">
                     <a href="#" class="link">
-                        <i class='bx bx-collection'></i>
-                        <span class="name">Category</span>
+                        <i class='bx bx-folder' style='color:#b9b5b5' ></i>
+                        <span class="name">Group</span>
                     </a>
-                    <i class='bx bxs-chevron-down'></i>
+                    <i class='bx bx-chevron-right'></i>
+                     <div class="tooltyf">
+                   <span class="tooltipif">Add Files</span> 
+                    <i id="fileUploadIcon" class='bx bxs-file-plus'></i>
+                    <input type="file" id="fileInput" style="display: none;" accept=".pdf" multiple>
+                     </div> 
+                     <div class="tooltydel">
+                        <span class="tooltipidel">Delete Group</span> 
+                        <i class='bx bxs-trash' id="deleteIcon"></i>
+                        </div>
+                </div>
+                <div class="hovericon">
+                    <p>GROUP</p>
                 </div>
                 <div class="submenu">
-                    <a href="#" class="link submenu-title">Category</a>
-                    <a href="#" class="link">HTML & CSS</a>
-                    <a href="#" class="link">JavaScript</a>
-                    <a href="#" class="link">PHP & MySQL</a>
-                </div>
+                    <p>Table 1</p>
+                    <p>Table 2</p>
+                </div> 
+                </div> 
             </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
-                <div class="title">
+            <li>
+                <div class="titleacc">
                     <a href="#" class="link">
-                        <i class='bx bx-book-alt'></i>
-                        <span class="name">Posts</span>
+                        <i class='bx bx-user' ></i>
+                        <span class="accname">Account</span>
                     </a>
-                    <i class='bx bxs-chevron-down'></i>
                 </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Posts</a>
-                    <a href="#" class="link">Web Design</a>
-                    <a href="#" class="link">Login Form</a>
-                    <a href="#" class="link">Card Design</a>
+                <div class="hovericon">
+                    <p>ACCOUNT</p>
                 </div>
             </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
                     <a href="#" class="link">
-                        <i class='bx bx-line-chart'></i>
-                        <span class="name">Analytics</span>
+                        <i class='bx bx-spreadsheet' style='color:#b9b5b5'  ></i>
+                        <button type="button" class="buttonexpo">
+                            <span class="button__text">Export</span>
+                            <span class="button__icon"><svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg"><path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path><path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path><path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path></svg></span>
+                          </button>
                     </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Analytics</a>
-                    <!-- submenu links here  -->
+                <div class="hovericon">
+                    <p>EXPORT TABLE</p>
                 </div>
             </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-pie-chart-alt-2'></i>
-                        <span class="name">Chart</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Chart</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-extension'></i>
-                        <span class="name">Plugins</span>
-                    </a>
-                    <i class='bx bxs-chevron-down'></i>
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Plugins</a>
-                    <a href="#" class="link">UI Face</a>
-                    <a href="#" class="link">Pigments</a>
-                    <a href="#" class="link">Box Icons</a>
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-compass'></i>
-                        <span class="name">Explore</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Explore</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-history'></i>
-                        <span class="name">History</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">History</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-cog'></i>
-                        <span class="name">Settings</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Settings</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-        </ul>
+            </ul>
     </div>
     <section class="home">
-        <div class="toggle-sidebar">
-            <i class='bx bx-menu'></i>
-            <div class="text">Toggle</div>
+        <div class="toggle-sidebar"> 
+            <!-- <i class='bx bx-menu' style='color:#b9b5b5'></i> -->
         </div>
     </section>
+    <div class="delpopup" id="dpop">
+        <div class="delcard">
+            <div class="card-cont">
+              <p class="card-heading">Delete Group?</p>
+              <p class="card-desc">Are you sure you want to delete this group</p>
+            </div>
+            <div class="card-butn">
+                <button class="card-button secondary" id="cancelButton">Cancel</button>
+                <button class="card-button primary" id="deleteButton">Delete</button>
+            </div>
+          </div>
+      </div>
+      <div class="delgpopup" id="dgpop">
+        <div class="delgcard">
+            <div class="gcard-cont">
+              <p class="gcard-heading">Delete All Groups?</p>
+              <p class="gcard-desc">Are you sure you want to delete all groups</p>
+            </div>
+            <div class="gcard-butn">
+                <button class="gcard-button gsecondary" id="gcancelButton">Cancel</button>
+                <button class="gcard-button gprimary" id="gdeleteButton">Delete</button>
+            </div>
+          </div>
+      </div>
+      <div class="addgpopup" id="agpop">
+        <div class="agcard">
+            <div class="agcard-cont">
+              <p class="agcard-heading">Add a group</p>
+              <input required="" placeholder="Name" type="text" class="nameinput">
+            </div>
+            <div class="agcard-butn">
+                <button class="agcard-button agsecondary" id="agcancelButton">Cancel</button>
+                <button class="agcard-button agprimary" id="agdeleteButton">Add</button>
+            </div>
+          </div>
+      </div>
+      <div class="accpopup" id="accpop">
+        <div class="nmcard">
+        </div>
+      </div>
     <script>
-        const listItems = document.querySelectorAll(".sidebar-list li");
-        listItems.forEach((item) => {
+    const listItems = document.querySelectorAll(".sidebar-list li");
+    listItems.forEach((item) => {
         item.addEventListener("click", () => {
-        let isActive = item.classList.contains("active");
-        listItems.forEach((el) => {
-        el.classList.remove("active");
+            let isActive = item.classList.contains("active");
+            listItems.forEach((el) => {
+                el.classList.remove("active");
+            });
+            if (isActive) item.classList.remove("active");
+            else item.classList.add("active");
         });
-    if (isActive) item.classList.remove("active");
-    else item.classList.add("active");
-    });
     });
 
     const toggleSidebar = document.querySelector(".toggle-sidebar");
-    const logo = document.querySelector(".logo-box");
-    const sidebar = document.querySelector(".sidebar");
-    toggleSidebar.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
-    });
+        const logo = document.querySelector(".logo-box");
+        const sidebar = document.querySelector(".sidebar");
+        toggleSidebar.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+        });
 
-    logo.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
+        logo.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        var grpsecList = document.querySelectorAll('.sidebar-list li .grpsec');
+
+        grpsecList.forEach(function (grpsec) {
+        var icon = grpsec.querySelector('.title .bx-chevron-right');
+
+        icon.addEventListener('click', function () {
+            var submenu = grpsec.querySelector('.submenu');
+            var isActive = submenu.classList.contains('active');
+            if (isActive) {
+                submenu.classList.remove('active');
+            } else {
+                submenu.classList.add('active');
+            }
+        });
     });
+});
+    const deleteIcon = document.getElementById('deleteIcon');
+    const deletePopup = document.getElementById('dpop');
+    function toggleDeletePopup() {
+        deletePopup.style.display = (deletePopup.style.display === 'none') ? 'block' : 'none';
+    }
+    deleteIcon.addEventListener('click', toggleDeletePopup);
+    document.getElementById('cancelButton').addEventListener('click', toggleDeletePopup);
+    
+
+    const deletegIcon = document.getElementById('deletegIcon');
+    const deletegPopup = document.getElementById('dgpop');
+    function toggleDeletegPopup() {
+        deletegPopup.style.display = (deletegPopup.style.display === 'none') ? 'block' : 'none';
+    }
+    deletegIcon.addEventListener('click', toggleDeletegPopup);
+    document.getElementById('gcancelButton').addEventListener('click', toggleDeletegPopup);
+
+
+    const agIcon = document.getElementById('agIcon');
+    const agPopup = document.getElementById('agpop');
+    function toggleAddGroupPopup() {
+        agPopup.style.display = (agPopup.style.display === 'none') ? 'block' : 'none';
+    }
+    agIcon.addEventListener('click', toggleAddGroupPopup);
+    document.getElementById('agcancelButton').addEventListener('click', toggleAddGroupPopup);
+
+
+    document.getElementById('fileUploadIcon').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+    });
+    document.getElementById('fileInput').addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+    if (file.type === 'application/pdf') {
+      console.log('Selected file:', file.name);
+    } else {
+    }
+  }
+});
     </script>
 </body>
 </html>
