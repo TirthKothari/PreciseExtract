@@ -11,9 +11,9 @@
     <div class="sidebar close">
         <div class="logo-box">
             <img src="logoslide.png" class="logo-image"> 
-        </div>  
             <div class="logo-name">Precise Extract
         </div>     
+    </div>  
         <ul class="sidebar-list">
             <li>
                 <div class="extrac">
@@ -34,32 +34,33 @@
                     <p>EXTRACTION</p>
                 </div>
             </li>
-            <li class="dropdown">
-                <div class="grpsec">
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-folder' style='color:#b9b5b5' ></i>
-                        <span class="name">Group</span>
-                    </a>
-                    <i class='bx bx-chevron-right'></i>
-                     <div class="tooltyf">
-                   <span class="tooltipif">Add Files</span> 
-                    <i id="fileUploadIcon" class='bx bxs-file-plus'></i>
-                    <input type="file" id="fileInput" style="display: none;" accept=".pdf, .jpg, .jpeg, .png" multiple>
-                     </div> 
-                     <div class="tooltydel">
-                        <span class="tooltipidel">Delete Group</span> 
-                        <i class='bx bxs-trash' id="deleteIcon"></i>
-                        </div>
-                </div>
-                <div class="hovericon">
-                    <p>GROUP</p>
-                </div>
-                <div class="submenu">
-                    <p>Table 1</p>
-                    <p>Table 2</p>
+            <li>
+                <div class="grpsec"> 
+            <div class="icon-link">
+                <a href="#" class="link">
+                    <i class='bx bx-folder' style='color:#b9b5b5' ></i>
+                  <span class="link-name">Group</span>
+                </a>
+                <i class='bx bx-chevron-right'></i>
+                <div class="tooltyf">
+              <span class="tooltipif">Add Files</span>                                     
+               <i id="fileUploadIcon" class='bx bxs-file-plus'></i>
+               <input type="file" id="fileInput" style="display: none;" accept=".pdf, .jpg, .jpeg, .png" multiple>
                 </div> 
-                </div> 
+                <div class="tooltydel">
+                   <span class="tooltipidel">Delete Group</span> 
+                   <i class='bx bxs-trash' id="deleteIcon"></i>
+                   </div>
+              </div>
+            </div>
+              <ul class="sub-menu">
+                <li><p>Table 1</p></li>
+                <li><p>Table 2</p></li>
+                <li><p>Table 3</p></li>
+              </ul>  
+            <div class="hovericon">
+                <p>GROUP</p>
+            </div>
             </li>
             <li>
                 <div class="titleacc">
@@ -73,7 +74,7 @@
                 </div>
             </li>
             <li>
-                <div class="title">
+                <div class="exptitle">
                     <a href="#" class="link">
                         <i class='bx bx-spreadsheet' style='color:#b9b5b5'  ></i>
                         <button type="button" class="buttonexpo">
@@ -82,7 +83,7 @@
                           </button>
                     </a>
                 </div>
-                <div class="hovericon">
+                <div class="expohovericon">
                     <p>EXPORT TABLE</p>
                 </div>
             </li>
@@ -159,30 +160,22 @@
         const logo = document.querySelector(".logo-box");
         const sidebar = document.querySelector(".sidebar");
         toggleSidebar.addEventListener("click", () => {
-        sidebar.classList.toggle("close");
+        sidebar.classList.toggle("close"); 
         });
 
         logo.addEventListener("click", () => {
         sidebar.classList.toggle("close");
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
-        var grpsecList = document.querySelectorAll('.sidebar-list li .grpsec');
 
-        grpsecList.forEach(function (grpsec) {
-        var icon = grpsec.querySelector('.title .bx-chevron-right');
-
-        icon.addEventListener('click', function () {
-            var submenu = grpsec.querySelector('.submenu');
-            var isActive = submenu.classList.contains('active');
-            if (isActive) {
-                submenu.classList.remove('active');
-            } else {
-                submenu.classList.add('active');
-            }
+        let arrows = document.querySelectorAll(".bx-chevron-right");
+        for (var i = 0; i < arrows.length; i++) {
+        arrows[i].addEventListener("click", (e) => {
+        let arrowParent = e.target.parentElement.parentElement;
+        arrowParent.classList.toggle("show");
         });
-    });
-});
+     }
+
     const deleteIcon = document.getElementById('deleteIcon');
     const deletePopup = document.getElementById('dpop');
     function toggleDeletePopup() {
