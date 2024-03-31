@@ -1427,7 +1427,6 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   display: flex;
   align-items: center;
   transition: all .5s ease;
-  overflow: visible;
 }
 .sidebar-list li .icon-link .link {
   display: flex;
@@ -1445,6 +1444,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 .sidebar-list li .icon-link .bxs-trash{
   font-size: 20px;
   margin-left: -34px;
+
 }
  .sidebar-list li .icon-link .bxs-file-plus{
    font-size: 20px;
@@ -1922,6 +1922,9 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   padding: 20px;
   border-radius: 10px;
   align-items: center;
+}
+.maxl{
+  color: gray;
 }
 .agcard {
   width: 300px;
