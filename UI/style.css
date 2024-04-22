@@ -33,7 +33,8 @@ nav img{
     margin-top: 10px;
     list-style: none;
     display: inline-block;  
-    padding: 10px 12px;
+    padding: 10px 30px;
+    gap: 10px;
     position: relative;
 }
 .nav-links ul li a{
@@ -52,7 +53,7 @@ nav img{
     transition: 0.3s;
 }
 .nav-links ul li:hover::after{
-    width: 80%
+    width: 100%
 }
 .nav-log ul li{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -569,13 +570,14 @@ nav img{
 .faqsec{
   background: #f2f2f2;
   width: 100%;
-  height: 95vh;
+  height: auto;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   padding-top: 100px;
   align-items: center;
-  overflow: hidden;
+  position: relative;
+  overflow: visible;
 }
 .faqsec h1{
   font-size: 50px;
@@ -599,7 +601,7 @@ nav img{
   justify-content: space-between;
   align-items: center;
 }
-.question h3 {
+.question h3 {  
   font-size: 1.5rem;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -639,7 +641,7 @@ nav img{
 .foote{
   background: #f2f2f2;
   width: 100%;
-  height: 76vh;
+  height: 85vh;
   margin: 0 auto;
   align-items: center;
 }
@@ -654,7 +656,7 @@ footer{
   justify-content: center;
 }
 .footer-content{
-  margin-top: 20px;
+  margin-top: 80px;
   width: 33.3%;
 }
 .foot-container h3{
@@ -809,7 +811,7 @@ footer{
 .footimg{
   width: 100%;
   transform: translate(-50%,-50%);
-  top: 22%;
+  top: 31%;
   left: 50%;
   position: relative;
 }
@@ -1102,150 +1104,282 @@ font-weight: 500;
       color: #ffffff;
     }  
 
-/* ---------------- Browse Files Temp------------- */
-.progress-bar-inner {
-  height: 20px;
-  border-radius: 5px;
-  background-color: #4caf50;
-  transition: width 0.3s ease;
+/* ---------------- About-Us Section ------------- */
+.abtnavbar{
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(145.2% 114.39999999999999% at 50% -3.4000000000000004%, #19194d 0%, rgba(0, 0, 0, 1) 29.10810260944537%);
+  background-position: center;
+  flex-wrap: wrap;
+  position: relative;
 }
-.progress-bar-text {
-  margin-top: 10px;
+.team-section{
+  width:100%;
+}
+.team-section .abtcontainer{
+  width:80%;
+  margin:auto;
+}
+.team-section .abtcontainer .abtrow{
+  width:90%;
+  margin:auto;
+  margin-top: -30px;
+}
+.team-section .abtcontainer .abtrow .abttitle{
   text-align: center;
+  margin-top: 50px;
+}
+.team-section .abtcontainer .abtrow .abttitle h1{
+  font-size: 30px;
+  font-weight: 900;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-transform: uppercase;
+  -webkit-background-clip: text;
+  background-clip: text;
+ -webkit-text-fill-color: transparent;
+  background-image: radial-gradient(circle, #086FFF 20%, #FFDDB7 30%, #086FFF 70%, #FFDDB7 80%), radial-gradient(circle, #086FFF 20%, #FFDDB7 30%, #086FFF 70%, #FFDDB7 80%); /* Define your gradient colors here */
+  background-size: 250% 250%; 
+  background-position: 0% 0%, 50% 50%; 
+  background-repeat: no-repeat;
+  animation: rotateGradient 10s ease-in infinite alternate;
+}
+@keyframes rotateGradient {
+  from {
+      background-position: 0 0;
+  }
+  to {
+      background-position: 100% 100%;
+  }
+}
+.team-section .abtcontainer .team-card{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
+    margin-top: 50px;
+    margin-left: 65px;
+  }
+.team-section .abtcontainer .team-card .abtcard {
+    position: relative;
+    width: 250px;
+    height: 300px;
+    background: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+.abtcard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(315deg,#ff0000,#271d93);
+} 
+.abtcard::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(315deg,#161238,#1e1e1e);
+    filter: blur(15px);
+}
+.abtcard b {
+  position: absolute;
+  inset: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+.abtcard .abtcontent {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.abtcontent .ctitle {
+  position: relative;
+  top: -50px;
   color: #fff;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 20px;
+  font-weight: 500;
+  line-height: 1em;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
 }
-.drbtn{
+.abtcontent .ctitle span {
+  font-weight: 300;
+  font-size: 0.70em;
+}
+.sci {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  top: -25px;
+}
+.sci li {
+  list-style: none;
+}
+.sci li .fa-brands {
+  width: 14px;
+}
+.sci li .fa-facebook {
+  width: 10px;
+}
+.abtimg {
+  position: absolute;
+  top: -230px;
+  width: 170px;
+  height: 150px;
+  background: #a4a4a4;
+  border-radius: 15px;
+  margin: auto;
+ }
+ .abtimg img{
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+ }
+.sci li a {
   position: relative;
-  top: 15%;
-  left: 30%;
-}
-.dbtn {
-  display: inline-block;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.2);
+  fill: currentColor;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 4px;
-  background-color: #3d405b;
-  border: none;
-  color: #FFFFFF;
+  transition: 0.5s;
+}
+.sci li a:hover {
+  fill: currentColor;
+  color: rgba(255, 255, 255, 1);
+}
+.abtdesc p{
   text-align: center;
   font-size: 17px;
-  padding: 16px;
-  width: 130px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
- }
- 
- .dbtn span {
-  cursor: pointer;
-  display: inline-block;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin: 55px 0px;
+  color: rgb(94, 94, 94);
+}
+
+/* ---------------- Service section ------------- */
+.servnavbar{
+  height: 160vh;
+  width: 100%;
+  background: radial-gradient(145.2% 114.39999999999999% at 50% -3.4000000000000004%, #19194d 0%, rgba(0, 0, 0, 1) 29.10810260944537%);
+  background-position: center;
+  flex-wrap: wrap;
   position: relative;
-  transition: 0.5s;
- }
- 
- .dbtn span:after {
-  content: '»';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -15px;
-  transition: 0.5s;
- }
- 
- .dbtn:hover span {
-  padding-right: 15px;
- }
- 
- .dbtn:hover span:after {
-  opacity: 1;
-  right: 0;
- }
- .retryb {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #3d405b;
-  border: none;
-  color: #FFFFFF;
+}
+.servicetitle{
   text-align: center;
-  font-size: 17px;
-  padding: 16px;
-  width: 130px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
- }
- 
- .retryb span {
-  cursor: pointer;
-  display: inline-block;
+  margin-top: 50px;
+}
+.servicetitle h1{
+  font-size: 30px;
+  font-weight: 900;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-transform: uppercase;
+  -webkit-background-clip: text;
+  background-clip: text;
+ -webkit-text-fill-color: transparent;
+  background-image: radial-gradient(circle, #086FFF 20%, #FFDDB7 30%, #086FFF 70%, #FFDDB7 80%), radial-gradient(circle, #086FFF 20%, #FFDDB7 30%, #086FFF 70%, #FFDDB7 80%); /* Define your gradient colors here */
+  background-size: 250% 250%; 
+  background-position: 0% 0%, 50% 50%; 
+  background-repeat: no-repeat;
+  animation: rotateGradient 10s ease-in infinite alternate;
+}
+@keyframes rotateGradient {
+  from {
+      background-position: 0 0;
+  }
+  to {
+      background-position: 100% 100%;
+  }
+}
+.service-card{
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  margin-top: 90px;
+  margin-left: 180px;
+}
+.servcard {
   position: relative;
-  transition: 0.5s;
-  font-size: 17px;
-  font-weight: 600;
- }
- 
- .retryb span:after {
-  content: '«';
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(81, 81, 81, 0), rgba(88, 88, 88, 0));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 0 5px #ffffff80;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.servcard img {
+  width: 120px;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.servcard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+.servcontent {
   position: absolute;
-  opacity: 0;
   top: 0;
-  left: -15px;
-  transition: 0.5s;
- }
- 
- .retryb:hover span {
-  padding-left: 15px;
- }
- 
- .retryb:hover span:after {
-  opacity: 1;
   left: 0;
- }
- .logoutb{
-  position: relative;
-  margin-top: -41.3%;
-  margin-left: 90%;
-  transform: translateX(-50%);
-  text-align: center;
- }
- .logoutb button{
-  border: 2px solid#2d79f3;
-  color: #2d79f3;
-  background-color: transparent;
-  border-radius: 5px;
-  background-size: 100% auto;
-  font-family: inherit;
-  font-size: 17px;
-  padding: 0.6em 1.5em;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(88, 88, 88, 0));
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.servcard:hover .servcontent {
+  transform: rotateX(0deg);
+}
+.servtitle {
+  margin: 0;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 700;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-.logoutb button:hover{
-  background-position: right center;
-  background-size: 200% auto;
-  -webkit-animation: pulse 2s infinite;
-  animation: pulse512 1.5s infinite;
- }
- @keyframes pulse512 {
-  0% {
-   box-shadow: 0 0 0 0 #4040ff;
-  }
- 
-  70% {
-   box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
-  }
- 
-  100% {
-   box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
-  }   
+.servcard:hover img {
+  opacity: 0;
 }
+.servdescription {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #d0d0d0;
+  line-height: 1.4;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 
 /* ---------------- Main section ------------- */
 .home{
   position: relative;
   background: linear-gradient(360deg, #3f3f3f -100.7016806722689%, rgba(0, 0, 0, 1) 18.10810260944537%);
   width: 100%;
-  height: 100vh;
+  height: 150vh;
   transition: all .5s ease;
 }
 .sidebar.close .home{
@@ -1268,7 +1402,7 @@ font-weight: 500;
 
 /* ---------------- Sidebar ------------- */
 .sidebar{ 
-    position: fixed;
+  position: fixed;
     top: 0;
     left: 0;
     height: 100%;
@@ -1278,6 +1412,7 @@ font-weight: 500;
     transition: all .5s ease;
     z-index: 100;
     user-select: none;
+ 
 }
 .sidebar.close{
     width: 78px;
@@ -1336,16 +1471,18 @@ font-weight: 500;
 /* ---------------- Sidebar li ------------- */
 .sidebar-list{
     height: 100%;
-    padding: 35px 0 150px 0;
+    padding: 10px 0 150px 0;
     overflow: hidden;
 }
 .sidebar-list li{
     transition: all .5s ease;
+    position: relative;
 }
 .sidebar.close .extrac .extname{
   visibility: hidden;
 }
 .sidebar-list li .extrac{
+  position: relative;
   margin-top: 20px;
   display: flex;
   align-items: center;
@@ -1386,16 +1523,24 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 .sidebar.close .extrac .bx-folder-plus{
   visibility: hidden;
 }
-.sidebar-list li .titleacc{
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all .5s ease;
-  border-top: 4px solid #4c41ec;
-  border-bottom: 4px solid #4c41ec;
-  cursor: pointer;
+.sidebar.close .sidebar-list li .titleacc{
+  width: 5.1%;
+  transition: 0.2.5s ease-in;
 }
+.sidebar-list li .titleacc{
+    position: fixed;
+    top: 370px; 
+    left: 0; 
+    width: 16.9%;
+    margin-top: 210px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all .5s ease;
+    border-top: 4px solid #4c41ec;
+    border-bottom: 4px solid #4c41ec;
+    cursor: pointer;
+  }
 .sidebar-list li .titleacc .link{
   display: flex;
   align-items: center;
@@ -1419,19 +1564,18 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 .sidebar.close .accname{
   visibility: hidden;
 }
-.sidebar-list li .grpsec{
-  height: 380px;
-}
 .sidebar-list li .icon-link {
   margin-top: 10px;
   display: flex;
   align-items: center;
   transition: all .5s ease;
+  position: relative;
 }
 .sidebar-list li .icon-link .link {
   display: flex;
   align-items: center;
-  text-decoration: none;
+  text-decoration: none;  
+  flex-grow: 1;
 }
 .sidebar-list li .icon-link i{
     height: 50px;
@@ -1442,13 +1586,12 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
     font-size: 25px;
 }
 .sidebar-list li .icon-link .bxs-trash{
-  font-size: 20px;
+  font-size: 18px;
   margin-left: -34px;
-
 }
  .sidebar-list li .icon-link .bxs-file-plus{
-   font-size: 20px;
-   margin-left: 1px;
+  font-size: 18px;
+  margin-left: -6px; 
 }
  .sidebar.close .icon-link .bxs-trash{
    visibility: hidden;
@@ -1458,22 +1601,28 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 }
 .sidebar-list li .bx-chevron-right {
   cursor: pointer;
-  font-size: 22px;
+  margin-left: 12px;
 }
 .sidebar.close .sidebar-list li .bx-chevron-right {
   visibility: hidden;
 }
 .sidebar-list li .icon-link a .link-name {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 800;
     color: #dfdfdf;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .sidebar.close .sidebar-list li a .link-name {
   visibility: hidden;
 }
 .sidebar-list li .exptitle{
-  margin-top: 5px;
+  position: fixed;
+  top: 415px;
+  margin-top: 230px;
+  left: 0; 
   display: flex;
   align-items: center;
   transition: all .5s ease;
@@ -1548,68 +1697,6 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   visibility: hidden;
 }
 
-/* ---------------- Hover on Icon ------------- */
-.hovericon p{
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  color:#dfdfdf;
-}
-.hovericon{
-  display: none;
-}
-.sidebar.close .sidebar-list li .hovericon{
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  left: 100%;
-  top: -10px;
-  margin-top: 9px;
-  padding: 10px 20px;
-  border-radius: 0 6px 6px 0;
-  height: max-content;
-  width: max-content;
-  opacity: 0;
-  transition: all .5s ease;
-  pointer-events: none;
-}
-.sidebar.close .sidebar-list li:hover .hovericon{
-  opacity: 1;
-  top: 0;
-  pointer-events: initial;
-  background-color: #73737368;
-}
-.expohovericon p{
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  color:#dfdfdf;
-}
-.expohovericon{
-  display: none;
-}
-.sidebar.close .sidebar-list li .expohovericon{
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  left: 100%;
-  top: -10px;
-  margin-top: 0px;
-  padding: 10px 20px;
-  border-radius: 0 6px 6px 0;
-  height: max-content;
-  width: max-content;
-  opacity: 0;
-  transition: all .5s ease;
-  pointer-events: none;
-}
-.sidebar.close .sidebar-list li:hover .expohovericon{
-  opacity: 1;
-  top: 0;
-  pointer-events: initial;
-  background-color: #73737368;
-}
-
 /* ---------------- Submenu ------------- */
 .sidebar-list li.show .bx-chevron-right {
   transition: all 0.5s ease;
@@ -1620,6 +1707,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   height: 0;
   opacity: 0;
   transition: all .3s ease;
+
 }
 .sidebar-list li.show .sub-menu {
   width: unset;
@@ -1627,18 +1715,26 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   opacity: 1;
   display: flex;
   flex-direction: column;
-  padding: 6px 6px 14px 80px;
+  padding: 0px 0px 14px 80px;
   background:transparent;
+  list-style-type: disc;
+  overflow: hidden;
 }
 .sidebar-list li .sub-menu p {
   color: #dfdfdf;
-  font-size: 15px;
-  padding: 5px 0;
+  font-size: 13px;
+  padding: 3px 0;
   transition: all .5s ease;
   cursor: pointer;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+.sidebar-list li .sub-menu li{
+  color: #ffffff;
+  
 }
 .sidebar-list li .sub-menu p:hover {
-  color: #6f66e9;
+  color: #7d75ea;
 }
 .sidebar.close .sidebar-list{
   overflow: visible;
@@ -1758,6 +1854,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   pointer-events: auto;
   overflow: visible;
 }
+
 /* ---------------- delete/add/acc popup ------------- */
 .delpopup{
   display: none;
@@ -1962,6 +2059,12 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   border-right: none;
   border-bottom: 1px solid rgba(105, 105, 105, 0.397);
 }
+.agcard-desc {
+  font-weight: 100;
+  color: rgb(48, 48, 48);
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size: 15px;
+}
 .agcard-butn {
   width: 100%;
   display: flex;
@@ -2084,4 +2187,91 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   background: rgb(2,29,78);
   background: linear-gradient(270deg, rgba(0, 0, 0, 0.681) 0%, rgba(91, 91, 91, 0.873) 60%);
   color: rgb(167, 167, 167);
+}
+
+
+
+table {
+  background-color: #fff;
+  margin-left: 360px;
+  color: #000;
+  width: 70%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  line-height: 0.7; 
+}
+th {
+  background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+.scontainer {
+  position: relative;
+  background: linear-gradient(135deg, rgb(39, 30, 119) 0%, rgb(164, 202, 248) 100%);
+  border-radius: 1000px;
+  padding: 10px;
+  display: grid;
+  place-content: center;
+  z-index: 0;
+  width: 600px;
+  height: 30px;
+  margin-left: 600px;
+  margin-top: 35px;
+}
+.search-container {
+  position: relative;
+  width: 590px;
+  height: 20px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, rgb(187, 187, 187) 0%, rgb(214, 229, 247) 100%);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+.search-container::after, .search-container::before {
+  content: "";
+  width: 100%;
+  height: 100%; 
+  border-radius: inherit;
+  position: absolute;
+}
+.search-container::before {
+  top: -1px;
+  left: -1px;
+  background: linear-gradient(0deg, rgb(40, 36, 126) 0%, rgb(255, 255, 255) 100%);
+  z-index: -1;
+}
+.search-container::after {
+  bottom: -1px;
+  right: -1px;
+  background: linear-gradient(0deg, rgb(43, 34, 103) 0%, rgb(211, 232, 255) 100%);
+  box-shadow: rgba(79, 156, 232, 0.7019607843) 3px 3px 5px 0px, rgba(79, 156, 232, 0.7019607843) 5px 5px 20px 0px;
+  z-index: -2;
+}
+.input {
+  padding: 0px;
+  width: 590px;
+  background: linear-gradient(135deg, rgb(187, 187, 187) 0%, rgb(211, 232, 255)  100%);
+  border: none;
+  color: #000000;
+  font-size: 17px;
+  border-radius: 50px;
+}
+.search__icon {
+  width: 40px;
+  padding-left: 12px;
+  margin-right: 20px;
+}
+.search__icon:hover path {
+  fill: rgb(38, 9, 255);
+}
+.search__icon path {
+  fill: rgb(101, 101, 101);
 }
