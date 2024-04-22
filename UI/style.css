@@ -2188,30 +2188,6 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   background: linear-gradient(270deg, rgba(0, 0, 0, 0.681) 0%, rgba(91, 91, 91, 0.873) 60%);
   color: rgb(167, 167, 167);
 }
-
-
-
-table {
-  background-color: #fff;
-  margin-left: 360px;
-  color: #000;
-  width: 70%;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
-  line-height: 0.7; 
-}
-th {
-  background-color: #f2f2f2;
-}
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-
 .scontainer {
   position: relative;
   background: linear-gradient(135deg, rgb(39, 30, 119) 0%, rgb(164, 202, 248) 100%);
@@ -2275,3 +2251,26 @@ tr:nth-child(even) {
 .search__icon path {
   fill: rgb(101, 101, 101);
 }
+
+/* ---------------- HTML String ------------- */
+table {
+  background-color: #fff;
+  margin-left: 360px;
+  color: #000;
+  width: 70%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  line-height: 0.7; 
+}
+th {
+  background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+

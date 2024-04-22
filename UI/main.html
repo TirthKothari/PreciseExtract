@@ -15,7 +15,7 @@
         </div>     
     </div>  
         <ul class="sidebar-list">
-            <li>
+            <li class="extracli">
                 <div class="extrac">
                     <a href="#" class="link">
                         <i class='bx bx-table'></i>
@@ -183,21 +183,16 @@
 
 
 
-    const deletePopup = document.getElementById('dpop');
-    const deleteButton = document.getElementById('deleteButton');
+    const deleteIcons = document.querySelectorAll('.bxs-trash');
+    deleteIcons.forEach(deleteIcon => {
+    deleteIcon.addEventListener('click', function() {
+        const groupToDelete = this.closest('.icon-link').parentElement;
+        groupToDelete.remove(); // Remove the specific group element
+        toggleDeletePopup(); // Close the delete group popup
+    });
+    });
 
-    function toggleDeletePopup() {
-    deletePopup.style.display = (deletePopup.style.display === 'none') ? 'block' : 'none';
-    }
-    function handleDeleteButtonClick() {
-    const groupToDelete = this.closest('.icon-link').parentElement; 
-    console.log('Group to delete:', groupToDelete); 
-    groupToDelete.remove(); 
-    toggleDeletePopup(); 
-    }
 
-deleteButton.addEventListener('click', handleDeleteButtonClick);
-document.getElementById('cancelButton').addEventListener('click', toggleDeletePopup);
 
 
 
@@ -210,6 +205,19 @@ document.getElementById('cancelButton').addEventListener('click', toggleDeletePo
     }
     deletegIcon.addEventListener('click', toggleDeletegPopup);
     document.getElementById('gcancelButton').addEventListener('click', toggleDeletegPopup);
+    
+
+    const gdeleteButton = document.getElementById('gdeleteButton');
+    gdeleteButton.addEventListener('click', function() {
+    const groupItems = document.querySelectorAll('.sidebar-list > li');
+    groupItems.forEach(group => {
+        if (!group.classList.contains('accountli') && !group.classList.contains('exportli') && !group.classList.contains('extracli')) {
+            group.remove(); 
+        }
+    });
+    toggleDeletegPopup(); 
+    });
+
 
 
 
