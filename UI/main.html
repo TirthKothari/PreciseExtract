@@ -270,7 +270,37 @@
             parentLi.classList.toggle('show');
             }
         });
-        
+
+
+
+        //This is the js for Delete Specific Group
+        function showDeletePopup(event) {
+        const deletePopup = document.getElementById('dpop');
+        const groupName = event.target.closest('.icon-link').querySelector('.link-name').textContent;
+        deletePopup.dataset.groupName = groupName; 
+        deletePopup.style.display = 'block';
+            }
+        const deleteIcons = document.querySelectorAll('.delete-icon');
+        deleteIcons.forEach(icon => {
+        icon.addEventListener('click', showDeletePopup);
+        });
+        function closeDeletePopup() {
+        const deletePopup = document.getElementById('dpop');
+        deletePopup.style.display = 'none';
+        }
+        const cancelButton = document.getElementById('cancelButton');
+        cancelButton.addEventListener('click', closeDeletePopup);
+        function handleDelete() {
+        const deletePopup = document.getElementById('dpop');
+        const groupName = deletePopup.dataset.groupName; 
+        console.log(groupName);
+        closeDeletePopup();
+        }
+        const deleteButton = document.getElementById('deleteButton');
+        deleteButton.addEventListener('click', handleDelete);
+
+
+
 });
     </script>
 </body>
