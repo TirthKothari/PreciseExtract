@@ -10,6 +10,11 @@ from flask_mail import Message
 from werkzeug.utils import secure_filename
 import jwt,datetime
 from jose import jwe
+import json
+import jsonpickle  
+import google.generativeai as genai
+genai.configure(api_key='AIzaSyBWDaWi8YWzLXijXfVMeY9DWptfrAjMJBs')
+
 
 # -----------------functions-----------------
 def get_reset_token(user):
@@ -18,7 +23,7 @@ def get_reset_token(user):
 def verify_reset_token(token):
     s = Serializer(app.config['SECRET_KEY'])
     try:
-        user_id = s.loads(token,max_age=30)['user_id']
+        user_id = s.loads(token,max_age=60)['user_id']
     except:
         return None
     return user_id
@@ -120,9 +125,11 @@ def login():
 
 @app.route("/reset_password/<token>",methods=['GET','POST'])
 def reset_token(token):
-    if session['loggedin'] == True:
-        return redirect(url_for('home'))
-    else:
+    try:
+        if session['loggedin'] == True:
+            return redirect(url_for('home'))
+    except KeyError:
+        pass
         user = verify_reset_token(token)
         if user is None:
             flash('That is an invalid or expired token')
@@ -157,24 +164,24 @@ def main():
     return render_template('main.html')
 
 #---------------------------upload files------------------
-@app.route("/upload_files/<tablename>",methods=['POST'])
-def upload_files(tablename):
-    if session['loggedin'] == False:
-        flash("login to continue")
-        return redirect(url_for('login'))
-    if request.method == 'POST':
-        for _file in request.files:
-            print(_file)
-            file = request.files[str(_file)]
-            filename = secure_filename(file.filename)
-            path = os.path.join(app.config['UPLOAD_FOLDER'],str(session['userid']),tablename)
-            #task = threading.Thread(target=saving_file,args=(file,filename))
-            if not os.path.exists(path):
-                os.makedirs(path)
-            file.save(os.path.join(path,filename))
-            #task.start()
-            print(file.filename)
-        return jsonify({'msg':'files revcived successfully'}),200
+# @app.route("/upload_files/<tablename>",methods=['POST'])
+# def upload_files(tablename):
+#     if session['loggedin'] == False:
+#         flash("login to continue")
+#         return redirect(url_for('login'))
+#     if request.method == 'POST':
+#         for _file in request.files:
+#             print(_file)
+#             file = request.files[str(_file)]
+#             filename = secure_filename(file.filename)
+#             path = os.path.join(app.config['UPLOAD_FOLDER'],str(session['userid']),tablename)
+#             #task = threading.Thread(target=saving_file,args=(file,filename))
+#             if not os.path.exists(path):
+#                 os.makedirs(path)
+#             file.save(os.path.join(path,filename))
+#             #task.start()
+#             print(file.filename)
+#         return jsonify({'msg':'files revcived successfully'}),200
     #     if 'files[]' not in request.files:
     #         return jsonify({"msg":"No files"}),400
     # files = request.files.getlist('files[]')
@@ -185,6 +192,7 @@ def upload_files(tablename):
 def get_token():
     if session['loggedin'] == False:
         flash("login to continue")
+        print("not loggedin")
         return redirect(url_for('login'))
     # dt = datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(seconds=30)
     payload = {"userid":str(session['userid']),"iat":datetime.datetime.now(datetime.timezone.utc)}
@@ -192,3 +200,51 @@ def get_token():
     token = jwe.encrypt(token,app.config['AES_SECRET_KEY'],algorithm='A256KW',encryption='A256GCM')
     # print(token.decode('ascii'))
     return jsonify({"token":token.decode('ascii')}),200
+
+
+
+@app.route("/aboutus")
+def aboutus():
+    return render_template("aboutus.html")
+
+@app.route("/service")
+def service():
+    return render_template("sevice.html")
+
+@app.route("/showtable/<token>",methods=['GET'])
+def show_table(token):
+    if session['loggedin'] == False:
+        flash("login to continue")
+        print("not loggedin")
+        return redirect(url_for('login'))
+    
+    curr = mysql.connection.cursor()
+    curr.execute(f"SELECT * FROM {token}")
+    data = curr.fetchall()
+    print(data)
+    # dict = json.loads({
+    #     "data":f"{data}",
+    #     "msg":"sucess"
+    # })
+    return jsonpickle.encode({"data":f"{data}","message":"success"})
+
+
+@app.route('/query/<token>',methods=['GET'])
+def query(token):
+    myquery = f'''CREATE TABLE `result` (`Date` VARCHAR(100)  NULL , `Instrument_Id` VARCHAR(100)  NULL , `Amount` DOUBLE(100,0)  NULL , `Type` VARCHAR(100) NOT NULL , `Balance` DOUBLE(100,0)  NULL , `Remarks` VARCHAR(200)  NULL )
+
+    {token}
+    generate an sql query for the user promt for above table , only generate userquery and no explanation, give the query in json form key = query
+      '''
+    model = genai.GenerativeModel('gemini-pro')
+    response = json.loads(model.generate_content("myquery"))
+
+    curr = mysql.connection.cursor()
+    curr.execute(f"{response['query']}")
+    data = curr.fetchall()
+    dict = json.loads({
+        "data":f"{data}",
+        "msg":"sucess"
+    })
+    return jsonify({f"data":{data},"msg":"sucess"}),200
+
