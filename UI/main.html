@@ -35,24 +35,6 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="icon-link">
-                  <a href="#" class="link">
-                    <i class='bx bx-folder' style='color:#b9b5b5'></i>
-                    <span class="link-name">Group</span> 
-                  </a>
-                  <i class='bx bx-chevron-right chevron-icon'></i>
-                  <div class="tooltydel">
-                    <span class="tooltipidel">Delete Group</span> 
-                    <i class='bx bxs-trash delete-icon'></i>         
-                  </div>
-                </div>
-                <ul class="sub-menu">
-                  <li><p>Table 1</p></li>
-                  <li><p>Table 2</p></li>
-                  <li><p>Table 3</p></li>
-                </ul>  
-              </li>
             <li class="accountli">
                 <div class="titleacc">
                     <a href="#" class="link">
@@ -232,44 +214,62 @@
             agPopup.style.display = 'none';
         });
 
+    
 
 
+        //This is the js for json to html 
+        const jsonData = {
+        "result": {
+            "Foods": ["cake_recipe.pdf", "lasagna_recipe.pdf"],
+            "Photo": ["vacation_photo.jpg", "family_picture.jpeg"]
+            },
+        "message": true
+        };
+        function createGroupListItem(groupName, files) {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <div class="icon-link">
+            <a href="#" class="link">
+            <i class='bx bx-folder' style='color:#b9b5b5'></i>
+            <span class="link-name">${groupName}</span> 
+            </a>
+            <i class='bx bx-chevron-right chevron-icon'></i>
+            <div class="tooltydel">
+            <span class="tooltipidel">Delete Group</span> 
+            <i class='bx bxs-trash delete-icon'></i>         
+            </div>
+            </div>
+            <ul class="sub-menu">
+        ${files.map(file => `<li><p>${file}</p></li>`).join('')}
+            </ul>`;
+        return listItem;
+        }
 
-        //This is the js for Deleting a specific group
-        let deleteIconClicked = null;
-        document.querySelectorAll('.delete-icon').forEach(icon => {
-        icon.addEventListener('click', (event) => {
-            deleteIconClicked = event.target.closest('.icon-link');
-            document.getElementById('dpop').classList.add('active');
-            });
-        });
-        document.getElementById('cancelButton').addEventListener('click', () => {
-        document.getElementById('dpop').classList.remove('active');
-        });
-        document.getElementById('deleteButton').addEventListener('click', () => {
-        if (deleteIconClicked) {
-            deleteIconClicked.remove();
-            document.getElementById('dpop').classList.remove('active');
-            deleteIconClicked = null;
+        function createGroupsInSidebar(data) {
+        const sidebarList = document.querySelector('.sidebar-list');
+        const extracliListItem = document.querySelector('.extracli');
+            for (const groupName in data.result) {
+            if (data.result.hasOwnProperty(groupName)) {
+        const groupFiles = data.result[groupName];
+        const groupListItem = createGroupListItem(groupName, groupFiles);
+        sidebarList.insertBefore(groupListItem, extracliListItem.nextSibling);
             }
-        });
+            }
+        }
+        createGroupsInSidebar(jsonData);
 
 
 
 
         //This is the js for Dropdown Submenu
-        const chevronIcons = document.querySelectorAll('.chevron-icon');
-        chevronIcons.forEach(icon => {
-            icon.addEventListener('click', function() {
-        const parentLi = icon.closest('li');
-        parentLi.classList.toggle('show');
-            });
+        const sidebarList = document.querySelector('.sidebar-list');
+        sidebarList.addEventListener('click', function(event) {
+        const chevronIcon = event.target.closest('.chevron-icon');
+            if (chevronIcon) {
+            const parentLi = chevronIcon.closest('li');
+            parentLi.classList.toggle('show');
+            }
         });
-
-
-
-
-        //This is the js for Deleting All groups 
         
 });
     </script>
