@@ -6,6 +6,7 @@
 <title>Precise Extract - Edit & Review</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="sidebar close">
@@ -20,18 +21,14 @@
                     <a href="#" class="link">
                         <i class='bx bx-table'></i>
                         <span class="extname">Extraction</span>
-                    </a>   
-                    <div class="tooltyr">
-                        <span class="tooltipir">Refresh</span>
-                        <i class='bx bx-refresh bx-rotate-90' style='color:#b9b5b5'></i>            
-                    </div>     
+                    </a>     
                     <div class="toolty">
                         <span class="tooltipi">Add Group</span>
                         <i class='bx bx-folder-plus bx-flip-horizontal' style='color:#b9b5b5' id="agIcon"></i>        
                     </div>    
                     <div class="tooltyd">
                     <span class="tooltipid">Delete All Groups</span>             
-                    <i class='bx bx-folder-minus bx-flip-horizontal' style='color:#b9b5b5' id="deletegIcon" ></i>          
+                    <i class='bx bx-folder-minus bx-flip-horizontal' style='color:#b9b5b5' id="deletegIcon" onclick="deleteall()" ></i>          
                     </div>
                 </div>
             </li>
@@ -47,7 +44,7 @@
                 <div class="exptitle">
                     <a href="#" class="link">
                         <i class='bx bx-spreadsheet' style='color:#b9b5b5' ></i>
-                        <button type="button" class="buttonexpo">
+                        <button type="button" class="buttonexpo" onclick="exporttable()">
                             <span class="button__text">Export</span>
                             <span class="button__icon"><svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg"><path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path><path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path><path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path></svg></span>
                           </button>
@@ -60,11 +57,13 @@
         <div class="toggle-sidebar"> 
             <!-- <i class='bx bx-menu' style='color:#b9b5b5'></i> -->
         </div>
-        <div id="tableContainer"></div>
+        <iframe id="table-iframe" width="100%" height="500px"></iframe>
+        <!-- <div id="table-container"></div> -->
         <div class="scontainer">
             <div class="search-container">
-              <input class="input" type="text">
-              <svg class="search__icon" height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+                <textarea class="input" id="queryinput" rows="4" placeholder=""></textarea>
+              <!-- <input class="input" type="text"> -->
+              <svg class="search__icon" height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle" onclick="query()">
                 <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
             </svg>
             </div>
@@ -114,16 +113,15 @@
                 <img src="{{url_for('static',filename='img/profile.png')}}" id="profile-pic">
                 <input type="file" id="profile-input" style="display: none;" accept=".jpg, .jpeg, .png">
             </div>  
-            <input class="emailshow" name="email" placeholder="" type="email">     
-            <button class="logoutbtn" onclick="location.href='{{url_for('logout')}}'">
+            <p class="emailshow">{{session['email']}}</p>
+            <!-- <input class="emailshow" name="email" placeholder="" type="email" >      -->
+            <button class="logoutbtn"  onclick="location.href='{{url_for('logout')}}'">
                 Log out
               </button>              
         </div>
       </div>
     <script>
-
-        
-    const ip = "http://192.168.0.104:8000";
+        const ip = "http://192.168.211.93:8000";
     // This is the js for Toggle Icon To Open and CLose Sidebar  
     document.addEventListener("DOMContentLoaded", function() {
     const listItems = document.querySelectorAll(".sidebar-list li");
@@ -148,7 +146,7 @@
     });
 
 
-
+});
 
     // This is the js for Account Section 
     document.getElementById('accname').addEventListener('click', function(event) {
@@ -185,7 +183,6 @@
         }
     });
 
-    // this is the js for validating input
     function ValidateInput(files) {
         let approved_ext = ["jpg",'jpeg','png','pdf'];
         let inp_files = new FormData() ;
@@ -296,8 +293,7 @@
         //  .catch(console.warn)
         
     }
-    
-    
+
     //This is the js for add group 
         const agIcon = document.getElementById('agIcon');
         const agPopup = document.getElementById('agpop');
@@ -323,7 +319,6 @@
             const files = popupFileInput.files;
             agPopup.style.display = 'none';
             handleinput(files,groupNameInput.value.trim())
-            
             for (let i = 0; i < files.length; i++) {
                 console.log(files[i].name); 
             }
@@ -331,26 +326,77 @@
         });
 
     
+        //This is the js for Delete Specific Group
+        function showDeletePopup(event) {
+            console.log("popup showed")
+        const deletePopup = document.getElementById('dpop');
+        const groupName = event.target.closest('.icon-link').querySelector('.link-name').textContent;
+        deletePopup.dataset.groupName = groupName; 
+        deletePopup.style.display = 'block';
+            };
+        const deleteIcons = document.querySelectorAll('.delete-icon');
+        deleteIcons.forEach(icon => {
+            console.log("delete clicked")
+        icon.addEventListener('click', showDeletePopup);
+        });
+        const sidebarList = document.querySelector('.sidebar-list');
+    sidebarList.addEventListener('click', function(event) {
+        if (event.target.classList.contains('delete-icon')) {
+            showDeletePopup(event);
+        }
+    });
+        function closeDeletePopup() {
+        const deletePopup = document.getElementById('dpop');
+        deletePopup.style.display = 'none';
+        }
+        const cancelButton = document.getElementById('cancelButton');
+        cancelButton.addEventListener('click', closeDeletePopup);
+        function handleDelete() {
+        const deletePopup = document.getElementById('dpop');
+        const groupName = deletePopup.dataset.groupName; 
+        let url = ip+"/delete/"+groupName;
+        fetch("{{url_for('get_token')}}")
+        .then(data=>
+            data.json()
+        )
+        .then(token =>{
+            const _token = token['token']
+            let request = new Request(url,{
+            mode:"cors",
+            method:"POST",
+            headers : new Headers({
+                "Authorization" : "Bearer "+_token,
+                // "Access-Control-Allow-Origin":"http://127.0.0.1:8000",
+                // "Access-Control-Allow-Credentials":'true'
 
+        })});
+        fetch(request)
+         .then((response)=>
+            response.json())
+         .then((responsejson)=>{
+            if (responsejson['message'] == true){
+                get_groups();
+            }
+         })
+         .catch(console.warn)             //----------------------show-----------------
+        });
+        console.log(groupName);
+        closeDeletePopup();
+        }
+        const deleteButton = document.getElementById('deleteButton');
+        deleteButton.addEventListener('click', handleDelete);
 
         //This is the js for json to html 
-        const jsonData = {
-        "result": {
-            "Foods": ["cake_recipe.pdf", "lasagna_recipe.pdf"],
-            "Photo": ["vacation_photo.jpg", "family_picture.jpeg"]
-            },
-        "message": true
-        };
         function createGroupListItem(groupName, files) {
         const listItem = document.createElement('li');
         listItem.innerHTML = `
             <div class="icon-link">
             <a href="#" class="link">
             <i class='bx bx-folder' style='color:#b9b5b5'></i>
-            <span class="link-name">${groupName}</span> 
+            <span class="link-name" onclick='show_table(this.textContent)'>${groupName}</span> 
             </a>
             <i class='bx bx-chevron-right chevron-icon'></i>
-            <div class="tooltydel">
+            <div class="tooltydel" >
             <span class="tooltipidel">Delete Group</span> 
             <i class='bx bxs-trash delete-icon'></i>         
             </div>
@@ -359,21 +405,25 @@
         ${files.map(file => `<li><p>${file}</p></li>`).join('')}
             </ul>`;
         return listItem;
-        }
+        };
 
         function createGroupsInSidebar(data) {
         const sidebarList = document.querySelector('.sidebar-list');
-        const extracliListItem = document.querySelector('.extracli');
+        const fixedListItems = document.querySelectorAll('.extracli, .accountli, .exportli');
+        sidebarList.innerHTML = '';
+        fixedListItems.forEach(item => sidebarList.appendChild(item));
             for (const groupName in data.result) {
             if (data.result.hasOwnProperty(groupName)) {
-        const groupFiles = data.result[groupName];
-        const groupListItem = createGroupListItem(groupName, groupFiles);
-        sidebarList.insertBefore(groupListItem, extracliListItem.nextSibling);
-            }
+            const groupFiles = data.result[groupName];
+            const groupListItem = createGroupListItem(groupName, groupFiles);
+            sidebarList.insertBefore(groupListItem, fixedListItems[0].nextSibling);
+                }
             }
         }
 
+
         function get_groups(){
+            console.log("called grp")
             let url = ip+"/groups"
 
             fetch("{{url_for('get_token')}}")
@@ -401,13 +451,17 @@
         });
 
         }
-        
 
+       
+        window.onload = function(){
+        // createTable(data);
+        get_groups();
+
+        };
 
 
 
         //This is the js for Dropdown Submenu
-        const sidebarList = document.querySelector('.sidebar-list');
         sidebarList.addEventListener('click', function(event) {
         const chevronIcon = event.target.closest('.chevron-icon');
             if (chevronIcon) {
@@ -416,88 +470,189 @@
             }
         });
 
-        const deleteIcons = document.querySelectorAll('.delete-icon');
-        deleteIcons.forEach(icon => {
-        icon.addEventListener('click', showDeletePopup);
+
+
+        function deleteall(){
+            let url = ip+"/deleteall";
+        fetch("{{url_for('get_token')}}")
+        .then(data=>
+            data.json()
+        )
+        .then(token =>{
+            const _token = token['token']
+            let request = new Request(url,{
+            mode:"cors",
+            method:"POST",
+            headers : new Headers({
+                "Authorization" : "Bearer "+_token,
+                // "Access-Control-Allow-Origin":"http://127.0.0.1:8000",
+                // "Access-Control-Allow-Credentials":'true'
+
+        })});
+        fetch(request)
+         .then((response)=>
+            response.json())
+         .then((responsejson)=>{
+            if (responsejson['message'] == true){
+                get_groups();
+            }
+         })
+         .catch(console.warn)             //----------------------show-----------------
         });
-        function closeDeletePopup() {
-        const deletePopup = document.getElementById('dpop');
-        deletePopup.style.display = 'none';
+            
         }
-        const cancelButton = document.getElementById('cancelButton');
-        cancelButton.addEventListener('click', closeDeletePopup);
-        function handleDelete() {
-        const deletePopup = document.getElementById('dpop');
-        const groupName = deletePopup.dataset.groupName; 
-        console.log(groupName);
-        closeDeletePopup();
+
+        function show_table(value){
+            console.log(value)
+            var url = "{{ url_for('show_table', token='placeholder') }}"
+            fetch(url.replace("placeholder",value))
+            .then((data)=>
+                data.json())
+            .then((datajson)=>{
+                    displayTableInIframe(datajson,value);
+                    
+            })
+
         }
-        const deleteButton = document.getElementById('deleteButton');
-        deleteButton.addEventListener('click', handleDelete);
 
 
-        window.onload = function(){
-            console.log("calledddd")
-            get_groups()
-        };
+        //This is the js for Showing the table 
 
-       
-        
-});
+        function generateTableHTML(data,value) {
+        let tableHTML = `<table id="screentable" class="${value}">`;
+        data.forEach(rowData => {
+        tableHTML += '<tr>';
+        rowData.forEach(cellData => {
+            tableHTML += `<td>${cellData}</td>`;
+        });
+        tableHTML += '</tr>';
+        });
+        tableHTML += '</table>';
+        return tableHTML;
+        }
+        function displayTableInIframe(data,value='') {
+        const iframe = document.getElementById('table-iframe');
+        const tableHTML = generateTableHTML(data,value);
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDocument.open();
+        iframeDocument.write('<!DOCTYPE html><html><head><style>');
+        iframeDocument.write(`
+        table {
+            background-color: #222222;
+            margin-left: 360px;
+            color: #ffffff;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 15px;
+            width: 70%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #4c41ec;
+            text-align: left;
+            line-height: 0.7;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #000000;
+        }
+        `);
+        iframeDocument.write('</style></head><body>');
+        iframeDocument.write(tableHTML);
+        iframeDocument.write('</body></html>');
+        iframeDocument.close();
+        }
 
-//  //This is the js for Delete Specific Group
-//  function showDeletePopup(event) {
-//         const deletePopup = document.getElementById('dpop');
-//         const groupName = event.target.closest('.icon-link').querySelector('.link-name').textContent;
-//         deletePopup.dataset.groupName = groupName; 
-//         deletePopup.style.display = 'block';
-//             }
-//         const deleteIcons = document.querySelectorAll('.delete-icon');
-//         deleteIcons.forEach(icon => {
-//         icon.addEventListener('click', showDeletePopup);
-//         });
-//         function closeDeletePopup() {
-//         const deletePopup = document.getElementById('dpop');
-//         deletePopup.style.display = 'none';
-//         }
-//         const cancelButton = document.getElementById('cancelButton');
-//         cancelButton.addEventListener('click', closeDeletePopup);
-//         function handleDelete() {
-//         const deletePopup = document.getElementById('dpop');
-//         const groupName = deletePopup.dataset.groupName;
-//         // let url = ip+"/delete/"+groupName
-//         // fetch("{{url_for('get_token')}}")
-//         // .then(data=>
-//         //     data.json()
-//         // )
-//         // .then(token =>{
-//         //     const _token = token['token']
-//         //     let request = new Request(url,{
-//         //     mode:"cors",
-//         //     method:"POST",
-//         //     headers : new Headers({
-//         //         "Authorization" : "Bearer "+_token,
-//         //         // "Access-Control-Allow-Origin":"http://127.0.0.1:8000",
-//         //         // "Access-Control-Allow-Credentials":'true'
+        // Function to extract table data into JavaScript list
+  function extractTableToList(tableId) {
+    var iframe = document.getElementById("table-iframe")
+    var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    console.log(iframe)
+    var table = iframeDocument.getElementById(tableId);
+    console.log(table)
+    var data = [];
 
-//         // })});
-//         // fetch(request)
-//         //  .then((response)=>
-//         //     response.json())
-//         //  .then((responsejson)=>{
-//         //     if (responsejson['message'] == true){
-//         //         get_groups();
-//         //     }
-//         //  })
-//         //  .catch(console.warn)             //----------------------show-----------------
-//         // });
-//         console.log(groupName);
-//         closeDeletePopup();
-//         }
-//         const deleteButton = document.getElementById('deleteButton');
-//         deleteButton.addEventListener('click', handleDelete);
+    // Iterate through rows
+    for (var i = 0, row; row = table.rows[i]; i++) {
+      var rowData = [];
+
+      // Iterate through cells
+      for (var j = 0, cell; cell = row.cells[j]; j++) {
+        rowData.push(cell.innerText);
+      }
+      
+      // Push row data into main data array
+      data.push(rowData);
+    }
+
+    return data;
+  }
+
+  // Function to convert JavaScript list to CSV format
+  function convertToCSV(jsList) {
+    var csv = "";
+    jsList.forEach(function(row) {
+      csv += row.join(",") + "\n";
+    });
+    return csv;
+  }
+
+  // Function to trigger download
+  function downloadCSV(csv) {
+    var blob = new Blob([csv], { type: 'text/csv' });
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+
+  // function to export the whole table
+
+  function exporttable(){
+    var tableData = extractTableToList('screentable');
+    console.log(tableData);
+    var csvData = convertToCSV(tableData);
+    downloadCSV(csvData);
+  }
+
+// function for querying table
+const socket = io({autoconnect:false});
+function query(){
+   var userquery = document.getElementById("queryinput").value;
+   var iframe = document.getElementById("table-iframe")
+   var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+   console.log(iframe)
+   var table = iframeDocument.getElementById('screentable');
+   var tablename = table.className;
+   console.log(tablename)
+
+   socket.connect();
+
+   socket.emit("userquery",userquery,tablename);
+
+   console.log("1st socket")
+   socket.on("table",function(response){
+    console.log("table socket")
+    const response1 = JSON.parse(response)
+    console.log(response1)
+    displayTableInIframe(response1,'')
+    
+   })
+
+   
+   
 
 
+
+
+
+}
 
     </script>
 </body>

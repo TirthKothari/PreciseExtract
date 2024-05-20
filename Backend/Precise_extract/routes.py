@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect,request,jsonify,make
 from Precise_extract import app,mail
 from Precise_extract import mysql
 from Precise_extract import bcrypt
-from Precise_extract import session,socketio
+from Precise_extract import session,socketio,emit
 from Precise_extract.forms import RegistrationForm,LoginForm,RequestResetForm,ResetPasswordForm
 import uuid,os,threading
 from itsdangerous import URLSafeTimedSerializer as Serializer
@@ -23,7 +23,7 @@ def get_reset_token(user):
 def verify_reset_token(token):
     s = Serializer(app.config['SECRET_KEY'])
     try:
-        user_id = s.loads(token,max_age=60)['user_id']
+        user_id = s.loads(token,max_age=1800)['user_id']
     except:
         return None
     return user_id
@@ -50,9 +50,9 @@ def saving_file(file,filename):
 @app.route("/home" ,methods=['GET','POST'])
 def home():
     try:
-        return render_template("home.html",session=session['loggedin'])
+        return render_template("home4.html",session=session['loggedin'])
     except KeyError:
-        return render_template("home.html",session=False)
+        return render_template("home4.html",session=False)
 
 
 
@@ -161,31 +161,8 @@ def main():
     if session['loggedin'] == False:
         flash("Login to continue")
         return redirect(url_for('login'))
-    return render_template('main3.html')
+    return render_template('main (4).html',session=session)
 
-#---------------------------upload files------------------
-# @app.route("/upload_files/<tablename>",methods=['POST'])
-# def upload_files(tablename):
-#     if session['loggedin'] == False:
-#         flash("login to continue")
-#         return redirect(url_for('login'))
-#     if request.method == 'POST':
-#         for _file in request.files:
-#             print(_file)
-#             file = request.files[str(_file)]
-#             filename = secure_filename(file.filename)
-#             path = os.path.join(app.config['UPLOAD_FOLDER'],str(session['userid']),tablename)
-#             #task = threading.Thread(target=saving_file,args=(file,filename))
-#             if not os.path.exists(path):
-#                 os.makedirs(path)
-#             file.save(os.path.join(path,filename))
-#             #task.start()
-#             print(file.filename)
-#         return jsonify({'msg':'files revcived successfully'}),200
-    #     if 'files[]' not in request.files:
-    #         return jsonify({"msg":"No files"}),400
-    # files = request.files.getlist('files[]')
-    # for file in files:
 
 #------------------------- JWT for FASTAPI server--------------------------
 @app.route("/get_token",methods=['GET'])
@@ -198,20 +175,29 @@ def get_token():
     payload = {"userid":str(session['userid']),"iat":datetime.datetime.now(datetime.timezone.utc)}
     token = jwt.encode(payload,app.config['SECRET_KEY'])
     token = jwe.encrypt(token,app.config['AES_SECRET_KEY'],algorithm='A256KW',encryption='A256GCM')
-    # print(token.decode('ascii'))
+    # print(token.d`ecode('ascii'))
     return jsonify({"token":token.decode('ascii')}),200
 
 
-
+#-----------------------------------About Us------------------------------
 @app.route("/aboutus")
 def aboutus():
-    return render_template("aboutus.html")
+    try:
+        return render_template("aboutus.html",session=session['loggedin'])
+    except KeyError:
+        return render_template("aboutus.html",session=False)
 
+#-------------------------------Service---------------------------------------
 @app.route("/service")
 def service():
-    return render_template("sevice.html")
+    try:
+        return render_template("sevice.html",session=session['loggedin'])
+    except KeyError:
+        return render_template("sevice.html",session=False)
 
-@app.route("/showtable/<token>",methods=['GET'])
+
+#----------------------------------Show Table------------------------------
+@app.route("/show_table/<token>",methods=['GET'])
 def show_table(token):
     if session['loggedin'] == False:
         flash("login to continue")
@@ -219,14 +205,88 @@ def show_table(token):
         return redirect(url_for('login'))
     
     curr = mysql.connection.cursor()
+    curr.execute(f"select column_name from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='{token}';")
+    
+    headers = [row[0] for row in curr.fetchall()]
     curr.execute(f"SELECT * FROM {token}")
-    data = curr.fetchall()
+    data = list(curr.fetchall())
+    
+    data = [list(x) for x in data ]
+    
+
+    format_date = lambda date_obj: date_obj.strftime('%d/%m/%Y') if date_obj is not None else None
+    for idx,x in enumerate(data):
+        for i,d in enumerate(x):
+            if type(d) == datetime.date:
+                x[i] = format_date(d)
+
+    data.insert(0,headers)
+
+    data = json.dumps(data)
     print(data)
+
+
     # dict = json.loads({
     #     "data":f"{data}",
     #     "msg":"sucess"
     # })
-    return jsonpickle.encode({"data":f"{data}","message":"success"})
+    return data,200
+    # return jsonify({"data":data,"message":True})
+
+
+#--------------------------------NLP-------------------------------
+
+@socketio.on('connect')
+def handle_connect():
+    print("connected")
+
+@socketio.on('userquery')
+def handle_userquery(query,tablename):
+    print(query)
+    print(tablename)
+    curr = mysql.connect.cursor()
+    curr.execute(f'''SELECT COLUMN_NAME, COLUMN_TYPE, IS_NULLABLE, COLUMN_KEY, COLUMN_DEFAULT, EXTRA
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE  TABLE_NAME = "{tablename}"
+''')
+    schema  = curr.fetchall()
+    curr.execute(f"select column_name from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='{tablename}';")
+    headers = curr.fetchall()
+    myquery = f'''
+tablename = {tablename}
+schema of table = {schema}
+
+{query}
+
+only give me the sql query in a proper json format "query":"sqlquery"
+'''
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(myquery)
+    if len(response.text)>0:
+        try:
+            sqlquery = json.loads(response.text)
+            print(sqlquery['query'])
+        except:
+            print(response.text)
+    else:
+        print(response.text)
+    # print(sqlquery['sqlquery'])
+
+    curr.execute(f"{sqlquery['query']}")
+
+    result = list(curr.fetchall())
+
+    result = [list(x) for x in result]
+
+    format_date = lambda date_obj: date_obj.strftime('%d/%m/%Y') if date_obj is not None else None
+    for idx,x in enumerate(result):
+        for i,d in enumerate(x):
+            if type(d) == datetime.date:
+                x[i] = format_date(d)
+
+    result = json.dumps(result)
+    print(result)
+    emit("table",result,broadcast=True)
 
 
 @app.route('/query/<token>',methods=['GET'])
@@ -237,7 +297,7 @@ def query(token):
     generate an sql query for the user promt for above table , only generate userquery and no explanation, give the query in json form key = query
       '''
     model = genai.GenerativeModel('gemini-pro')
-    response = json.loads(model.generate_content("myquery"))
+    response = json.loads(model.generate_content(myquery))
 
     curr = mysql.connection.cursor()
     curr.execute(f"{response['query']}")
