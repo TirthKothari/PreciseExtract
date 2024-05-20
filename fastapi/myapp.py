@@ -53,7 +53,9 @@ origins = [
     "http://192.168.0.104:5000",
     "http://10.110.12.229:5000",
     "http://192.168.0.104:5000",
-    "http://192.168.0.104:8000"
+    "http://192.168.0.104:8000",
+    "http://192.168.211.93:5000",
+    "http://192.168.211.93:8000"
 ]
 
 app.add_middleware(
@@ -522,18 +524,59 @@ async def index(Authorization:Annotated[str | None,Header()] = None ):
 
     json_groups={}
     path = os.path.join("UPLOADED_FILES",userid)
-    groups = os.listdir(path)
-    for g in groups:
-        files_list = os.listdir(os.path.join(path,g))
-        fil = []
-        print(g)
-        for f in files_list:
-            filename , fileextension = os.path.splitext(f)
-            if fileextension.casefold() in ['.jpg','.png','.pdf','.jpeg']:
-                fil.append(filename)
-                print(f)
-        json_groups[g] = fil
+    if os.path.exists(path):
+        groups = os.listdir(path)
+        for g in groups:
+            files_list = os.listdir(os.path.join(path,g))
+            fil = []
+            print(g)
+            for f in files_list:
+                filename , fileextension = os.path.splitext(f)
+                if fileextension.casefold() in ['.jpg','.png','.pdf','.jpeg']:
+                    fil.append(filename)
+                    print(f)
+            json_groups[g] = fil
 
-    print(json_groups)
+        print(json_groups)
 
     return {"result":json_groups,"message":True}
+
+@app.post("/delete/{tablename}")
+async def index(tablename:str,Authorization:Annotated[str | None,Header()] = None ):
+    authorization_token = Authorization.split(" ")[1].encode('ascii')
+    try:
+        token = jwe.decrypt(authorization_token,settings.AES_SECRET_KEY)
+        token = jwt.decode(token,settings.SECRET_KEY,algorithms=['HS256'])
+    except jwt.InvalidTokenError:
+        return {"message":"Invalid Token","redirect":False}
+    except Exception as e:
+         return {"message":"cant decrypt","redirect":False}
+    userid = token['userid']
+    path = os.path.join("UPLOADED_FILES",userid,tablename)
+    if os.path.exists(path):
+        shutil.rmtree(path)
+        mycursor.execute(f"drop table {tablename}")
+        mydb.commit()
+    return {"message":True}
+
+@app.post("/deleteall")
+async def index(Authorization:Annotated[str | None,Header()] = None):
+    authorization_token = Authorization.split(" ")[1].encode('ascii')
+    try:
+        token = jwe.decrypt(authorization_token,settings.AES_SECRET_KEY)
+        token = jwt.decode(token,settings.SECRET_KEY,algorithms=['HS256'])
+    except jwt.InvalidTokenError:
+        return {"message":"Invalid Token","redirect":False}
+    except Exception as e:
+         return {"message":"cant decrypt","redirect":False}
+    userid = token['userid']
+    path = os.path.join("UPLOADED_FILES",userid)
+    if os.path.exists(path):
+        all_grps = os.listdir(path)
+        for a in all_grps:
+            del_path = os.path.join(path,a)
+            shutil.rmtree(del_path)
+            mycursor.execute(f"drop table {a}")
+            mydb.commit()
+
+    return {"message":True}
