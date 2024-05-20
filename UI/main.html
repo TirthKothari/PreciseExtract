@@ -60,7 +60,7 @@
         <div class="toggle-sidebar"> 
             <!-- <i class='bx bx-menu' style='color:#b9b5b5'></i> -->
         </div>
-        <div id="tableContainer"></div>
+        <div id="table-container"></div>
         <div class="scontainer">
             <div class="search-container">
               <input class="input" type="text">
@@ -299,6 +299,32 @@
         const deleteButton = document.getElementById('deleteButton');
         deleteButton.addEventListener('click', handleDelete);
 
+
+
+
+        //This is the js for Showing the table 
+        const data = [
+         ["apple", "banana", "orange", "grape", "strawberry"],
+         ["car", "bicycle", "train", "bus", "plane"],
+         ["dog", "cat", "rabbit", "hamster", "goldfish"],
+         ["book", "pen", "pencil", "notebook", "marker"],
+         ["chair", "table", "desk", "couch", "lamp"]
+        ];
+
+        function createTable(data) {
+        const table = document.createElement('table');
+        data.forEach(rowData => {
+        const row = document.createElement('tr');
+        rowData.forEach(cellData => {
+            const cell = document.createElement('td');
+            cell.textContent = cellData;
+            row.appendChild(cell);
+        });
+        table.appendChild(row);
+        });
+        document.getElementById('table-container').appendChild(table);
+        }
+        createTable(data);
 
 
 });
