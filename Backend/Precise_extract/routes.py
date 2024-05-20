@@ -161,7 +161,7 @@ def main():
     if session['loggedin'] == False:
         flash("Login to continue")
         return redirect(url_for('login'))
-    return render_template('main.html')
+    return render_template('main3.html')
 
 #---------------------------upload files------------------
 # @app.route("/upload_files/<tablename>",methods=['POST'])
