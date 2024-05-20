@@ -842,9 +842,9 @@ footer{
   position: relative;
   background: black;
   border-radius: 0px;
-  padding: 2px;
+  padding: 2px; 
   overflow: hidden;
-  box-shadow: 0px 20px 15px 0px rgb(52, 49, 255);
+  box-shadow: 0px 15px 20px 0px rgb(52, 49, 255);
 }
 .button-box{
   width: 450px;
@@ -876,7 +876,7 @@ footer{
 form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 20px;
   width: 450px;
   border-radius: 20px;
   position: absolute;
@@ -2211,22 +2211,22 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   position: relative;
   background: linear-gradient(135deg, rgb(39, 30, 119) 0%, rgb(164, 202, 248) 100%);
   border-radius: 1000px;
-  padding: 10px;
+  padding: 8px;
   display: grid;
   place-content: center;
   z-index: 0;
   width: 600px;
-  height: 30px;
+  height: auto;
   margin-left: 570px;
   margin-top: 40px;
 }
 .search-container {
   position: relative;
   width: 590px;
-  height: 20px;
+  height: auto;
   border-radius: 50px;
   background: linear-gradient(135deg, rgb(187, 187, 187) 0%, rgb(214, 229, 247) 100%);
-  padding: 5px;
+  padding: 0px;
   display: flex;
   align-items: center;
 }
@@ -2250,14 +2250,19 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   box-shadow: rgba(79, 156, 232, 0.7019607843) 3px 3px 5px 0px, rgba(79, 156, 232, 0.7019607843) 5px 5px 20px 0px;
   z-index: -2;
 }
-.searchinput {
-  padding: 0px;
-  width: 590px;
-  background: linear-gradient(135deg, rgb(187, 187, 187) 0%, rgb(211, 232, 255)  100%);
-  border: none;
-  color: #000000;
+textarea.searchinput {
+  width: 100%;
+  max-height: 3.6em; /* 2 rows of 1.8em each (default line-height) */
+  overflow-y: hidden; /* Initially hidden */
+  resize: none; /* Disable manual resizing */
+  box-sizing: border-box;
+  padding: 8px;
   font-size: 17px;
+  line-height: 1em;
   border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, rgb(187, 187, 187) 0%, rgb(211, 232, 255) 100%);
+  color: #000000;
 }
 .search__icon {
   width: 40px;
