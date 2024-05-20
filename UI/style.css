@@ -1379,7 +1379,7 @@ font-weight: 500;
   position: relative;
   background: linear-gradient(360deg, #3f3f3f -100.7016806722689%, rgba(0, 0, 0, 1) 18.10810260944537%);
   width: 100%;
-  height: 150vh;
+  height: 100vh;
   transition: all .5s ease;
 }
 .sidebar.close .home{
@@ -1505,7 +1505,8 @@ font-weight: 500;
 }
 .sidebar-list li .extrac .extname{
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 600;
   color: #dfdfdf;
 }
 .sidebar-list li .extrac .bx-refresh{
@@ -1514,11 +1515,11 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 }
 .sidebar-list li .extrac .bx-folder-minus{
   font-size: 20px;
-  margin-left: -37px;
+  margin-left: -25px;
 }
 .sidebar-list li .extrac .bx-folder-plus{
   font-size: 20px;
-  margin-left: -42px;
+  margin-left: -15px;
 }
 .sidebar.close .extrac .bx-refresh{
   visibility: hidden;
@@ -1593,7 +1594,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 }
 .sidebar-list li .icon-link .bxs-trash{
   font-size: 18px;
-  margin-left: 22px;
+  margin-left: 1px;
 }
  .sidebar-list li .icon-link .bxs-file-plus{
   font-size: 18px;
@@ -1607,7 +1608,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 }
 .sidebar-list li .bx-chevron-right {
   cursor: pointer;
-  margin-left: 27px;
+  margin-left: 45px;
 }
 .sidebar.close .sidebar-list li .bx-chevron-right {
   visibility: hidden;
@@ -1749,6 +1750,9 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 
 
 /* ---------------- tooltips ------------- */
+.sidebar.close .toolty{
+  visibility: hidden;
+}
 .toolty{
   position: relative;
   cursor: pointer;
@@ -1758,7 +1762,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 .tooltipi {
   position: absolute;
   top: 0;
-  transform: translateX(-60%);
+  transform: translateX(-10%);
   padding: 0.4em 0.40em;
   opacity: 0;
   pointer-events: none;
@@ -1777,33 +1781,8 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   visibility: visible;
   pointer-events: auto;
 }
-.tooltyr{
-  position: relative;
-  cursor: pointer;
-  text-align: center;
-  overflow: visible;
-}
-.tooltipir{
-  position: absolute;
-  top: 0;
-  transform: translateX(-30%);
-  padding: 0.4em 0.10em;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.2s;
-  background-color: rgb(39, 39, 39);
-  border-radius: 1px;
-  border: 1px solid white;
-  width: 70px;
-  color: rgb(255, 255, 255);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 12px;
-}
-.tooltyr:hover .tooltipir {
-  top: 80%;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+.sidebar.close .tooltyd{
+  visibility: hidden;
 }
 .tooltyd{
   position: relative;
@@ -1813,7 +1792,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 .tooltipid {
   position: absolute;
   top: 0;
-  transform: translateX(-79%);
+  transform: translateX(-65%);
   padding: 0.4em 0.40em;
   opacity: 0;
   pointer-events: none;
@@ -1832,6 +1811,9 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   visibility: visible;
   pointer-events: auto;
 }
+.sidebar.close .tooltydel{
+  visibility: hidden;
+}
 .tooltydel{
   position: relative;
   cursor: pointer;
@@ -1840,7 +1822,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 .tooltipidel {
   position: absolute;
   top: 0;
-  transform: translateX(-10%);
+  transform: translateX(-25%);
   padding: 0.4em 0.40em;
   opacity: 0;
   pointer-events: none;
@@ -2236,7 +2218,7 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
   width: 600px;
   height: 30px;
   margin-left: 570px;
-  margin-top: 535px;
+  margin-top: 40px;
 }
 .search-container {
   position: relative;
@@ -2288,25 +2270,6 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 .search__icon path {
   fill: rgb(101, 101, 101);
 }
-
-
-table {
-  background-color: #fff;
-  margin-left: 360px;
-  color: #000;
-  width: 70%;
-  border-collapse: collapse;
+#table-iframe {
+  border: none;
 }
-th, td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
-  line-height: 0.7; 
-}
-th {
-  background-color: #f2f2f2;
-}
-tr:nth-child(even) {
-  background-color: #afafaf;
-}
-

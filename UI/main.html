@@ -20,11 +20,7 @@
                     <a href="#" class="link">
                         <i class='bx bx-table'></i>
                         <span class="extname">Extraction</span>
-                    </a>   
-                    <div class="tooltyr">
-                        <span class="tooltipir">Refresh</span>
-                        <i class='bx bx-refresh bx-rotate-90' style='color:#b9b5b5'></i>            
-                    </div>     
+                    </a>       
                     <div class="toolty">
                         <span class="tooltipi">Add Group</span>
                         <i class='bx bx-folder-plus bx-flip-horizontal' style='color:#b9b5b5' id="agIcon"></i>        
@@ -60,7 +56,7 @@
         <div class="toggle-sidebar"> 
             <!-- <i class='bx bx-menu' style='color:#b9b5b5'></i> -->
         </div>
-        <div id="table-container"></div>
+        <iframe id="table-iframe" width="100%" height="500px"></iframe>
         <div class="scontainer">
             <div class="search-container">
               <input class="input" type="text">
@@ -247,13 +243,15 @@
 
         function createGroupsInSidebar(data) {
         const sidebarList = document.querySelector('.sidebar-list');
-        const extracliListItem = document.querySelector('.extracli');
+        const fixedListItems = document.querySelectorAll('.extracli, .accountli, .exportli');
+        sidebarList.innerHTML = '';
+        fixedListItems.forEach(item => sidebarList.appendChild(item));
             for (const groupName in data.result) {
             if (data.result.hasOwnProperty(groupName)) {
-        const groupFiles = data.result[groupName];
-        const groupListItem = createGroupListItem(groupName, groupFiles);
-        sidebarList.insertBefore(groupListItem, extracliListItem.nextSibling);
-            }
+            const groupFiles = data.result[groupName];
+            const groupListItem = createGroupListItem(groupName, groupFiles);
+            sidebarList.insertBefore(groupListItem, fixedListItems[0].nextSibling);
+                }
             }
         }
         createGroupsInSidebar(jsonData);
@@ -304,27 +302,77 @@
 
         //This is the js for Showing the table 
         const data = [
-         ["apple", "banana", "orange", "grape", "strawberry"],
-         ["car", "bicycle", "train", "bus", "plane"],
-         ["dog", "cat", "rabbit", "hamster", "goldfish"],
-         ["book", "pen", "pencil", "notebook", "marker"],
-         ["chair", "table", "desk", "couch", "lamp"]
-        ];
+    ["apple", "banana", "orange", "grape", "strawberry"],
+    ["car", "bicycle", "train", "bus", "plane"],
+    ["dog", "cat", "rabbit", "hamster", "goldfish"],
+    ["book", "pen", "pencil", "notebook", "marker"],
+    ["chair", "table", "desk", "couch", "lamp"],
+    ["apple", "banana", "orange", "grape", "strawberry"],
+    ["car", "bicycle", "train", "bus", "plane"],
+    ["dog", "cat", "rabbit", "hamster", "goldfish"],
+    ["book", "pen", "pencil", "notebook", "marker"],
+    ["chair", "table", "desk", "couch", "lamp"],
+    ["apple", "banana", "orange", "grape", "strawberry"],
+    ["car", "bicycle", "train", "bus", "plane"],
+    ["dog", "cat", "rabbit", "hamster", "goldfish"],
+    ["book", "pen", "pencil", "notebook", "marker"],
+    ["chair", "table", "desk", "couch", "lamp"],
+    ["apple", "banana", "orange", "grape", "strawberry"],
+    ["car", "bicycle", "train", "bus", "plane"],
+    ["dog", "cat", "rabbit", "hamster", "goldfish"],
+    ["book", "pen", "pencil", "notebook", "marker"],
+    ["chair", "table", "desk", "couch", "lamp"]
+];
 
-        function createTable(data) {
-        const table = document.createElement('table');
+        function generateTableHTML(data) {
+        let tableHTML = '<table>';
         data.forEach(rowData => {
-        const row = document.createElement('tr');
+        tableHTML += '<tr>';
         rowData.forEach(cellData => {
-            const cell = document.createElement('td');
-            cell.textContent = cellData;
-            row.appendChild(cell);
+            tableHTML += `<td>${cellData}</td>`;
         });
-        table.appendChild(row);
+        tableHTML += '</tr>';
         });
-        document.getElementById('table-container').appendChild(table);
+        tableHTML += '</table>';
+        return tableHTML;
         }
-        createTable(data);
+        function displayTableInIframe(data) {
+        const iframe = document.getElementById('table-iframe');
+        const tableHTML = generateTableHTML(data);
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDocument.open();
+        iframeDocument.write('<!DOCTYPE html><html><head><style>');
+        iframeDocument.write(`
+        table {
+            background-color: #222222;
+            margin-left: 360px;
+            color: #ffffff;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 15px;
+            width: 70%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #4c41ec;
+            text-align: left;
+            line-height: 0.7;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #000000;
+        }
+        `);
+        iframeDocument.write('</style></head><body>');
+        iframeDocument.write(tableHTML);
+        iframeDocument.write('</body></html>');
+        iframeDocument.close();
+        }
+
+        displayTableInIframe(data);
+
 
 
 });
