@@ -89,6 +89,12 @@ Precise Extract is a web application that enables users to input their structure
 6. **📥 Export Data:**
     - Use the export options to download data in Excel format.
 
+## 👥 Main Creators
+
+- [Ayman Meethal](https://github.com/aymanmeethal)
+- [Maitri Doshi](https://github.com/DoshiMaitri)
+- [Tirth Kothari](https://github.com/TirthKothari)
+
 
 ## 📜 License
 
