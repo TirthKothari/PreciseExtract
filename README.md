@@ -8,7 +8,6 @@ Precise Extract is a web application that enables users to input their structure
 - [🛠 Technical Details](#-technical-details)
 - [⚙️ Installation](#️-installation)
 - [🚀 Usage](#-usage)
-- [🤝 Contributing](#-contributing)
 - [📜 License](#-license)
 
 ## ✨ Features
