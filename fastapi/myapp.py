@@ -1,6 +1,7 @@
 from fastapi import FastAPI,UploadFile,File,Header
 from typing import List,Annotated
 import shutil,os
+import jwt.exceptions
 from werkzeug.utils import secure_filename
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic_settings import BaseSettings
@@ -76,7 +77,11 @@ app.add_middleware(
 def pdf2images(path):
     dir = os.listdir(path)
     with open(os.path.join(path,"status.json"),'r') as f:
-        status = json.load(f)
+        try:
+            status = json.load(f)
+        except Exception as e:
+            print(e)
+            status = []
         f.close()
     with open(os.path.join(path,"status.json"),'w') as f:
         for d in dir:
@@ -426,7 +431,7 @@ async def index(tablename:str,files:List[UploadFile] = File(...),Authorization:A
     try:
         token = jwe.decrypt(authorization_token,settings.AES_SECRET_KEY)
         token = jwt.decode(token,settings.SECRET_KEY,algorithms=['HS256'])
-    except jwt.InvalidTokenError:
+    except jwt.exceptions.InvalidKeyTypeError:
         return {"message":"Invalid Token","redirect":False}
     except Exception as e:
          return {"message":"cant decrypt","redirect":False}

@@ -14,7 +14,7 @@ import json
 import jsonpickle  
 from decimal import Decimal
 import google.generativeai as genai
-genai.configure(api_key='AIzaSyBWDaWi8YWzLXijXfVMeY9DWptfrAjMJBs')
+genai.configure(api_key='AIzaSyDi8cL5I9NWedG-y58lLo57Q1rlDTfCvlE')
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -262,10 +262,10 @@ tablename = {tablename}
 schema of table = {schema}
 
 {query}
-
+give me the sql for the above user prompt, for above sql schema. give me the output in json format "query":"sqlquery" , dont add any explaination or extra text, dont add any new lines, the output should be able to json decode
 only give me the sql query in a proper json format "query":"sqlquery" and no other text
 '''
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(myquery)
     if len(response.text)>0:
         print(response.text)
@@ -299,7 +299,7 @@ def query(token):
     {token}
     generate an sql query for the user promt for above table , only generate userquery and no explanation, give the query in json form key = query
       '''
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     response = json.loads(model.generate_content(myquery))
 
     curr = mysql.connection.cursor()
